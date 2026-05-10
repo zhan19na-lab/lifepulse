@@ -1,0 +1,6 @@
+{
+  "buildCommand": "echo 'LifePulse ready for deployment'",
+  "outputDirectory": ".",
+  "framework": "static",
+  "public": true
+}
