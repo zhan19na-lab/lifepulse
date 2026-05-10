@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifePulse - Умный помощник для контроля здоровья</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0033 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 15, 35, 0.8);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: #b0b0d0;
+        }
+
+        .btn-top {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(201, 77, 255, 0.3);
+        }
+
+        .btn-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 77, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h2 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .hero-content h2 .highlight {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            color: #b0b0d0;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 77, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #333;
+            border: 2px solid rgba(51, 51, 51, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(51, 51, 51, 0.05);
+            border-color: #666;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+        }
+
+        /* Heart Container */
+        .heart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            background: linear-gradient(135deg, rgba(201, 77, 255, 0.08) 0%, rgba(255, 0, 110, 0.05) 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(201, 77, 255, 0.15);
+            position: relative;
+        }
+
+        .heart {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 90px;
+            height: 140px;
+            background: #ff0000;
+            border-radius: 90px 90px 0 0;
+            border: 3px solid #000;
+        }
+
+        .heart::before {
+            left: 60px;
+            transform: rotate(-45deg);
+            transform-origin: 0 140px;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 90px 140px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        /* Metrics Section */
+        .metrics {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+        }
+
+        .metrics-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .metrics-title span {
+            color: #c94dff;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-input {
+            background: rgba(50, 50, 90, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+        }
+
+        .metric-input label {
+            display: block;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .metric-input input,
+        .metric-input select {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(201, 77, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .metric-input input::placeholder,
+        .metric-input select::placeholder {
+            color: #606080;
+        }
+
+        .metric-input input:focus,
+        .metric-input select:focus {
+            outline: none;
+            border-color: #ff006e;
+            box-shadow: 0 0 15px rgba(201, 77, 255, 0.3);
+        }
+
+        .metrics-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            flex: 1;
+            max-width: 600px;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.3);
+        }
+
+        .btn-clear {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        /* Features Section (9 cards) */
+        .features {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            text-align: left;
+            color: #ffffff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(30, 30, 60, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 77, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.7rem;
+            color: #c94dff;
+        }
+
+        .feature-card p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .review-card {
+            background: rgba(30, 30, 60, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 77, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
+        }
+
+        .review-stars {
+            font-size: 1.1rem;
+            letter-spacing: 0.2rem;
+        }
+
+        .review-text {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .review-author {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .review-info h4 {
+            color: #ffffff;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .review-info p {
+            color: #b0b0d0;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .review-metric {
+            color: #c94dff;
+            font-weight: 600;
+            margin-top: 0.5rem !important;
+        }
+
+        .reviews-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(30, 30, 60, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .stat-big {
+            font-size: 2rem;
+            color: #c94dff;
+            font-weight: bold;
+        }
+
+        .stat-small {
+            color: #b0b0d0;
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .faq-card {
+            background: rgba(30, 30, 60, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #c94dff;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            border-left: 4px solid #c94dff;
+            transition: all 0.3s;
+        }
+
+        .faq-card:hover {
+            border-color: rgba(201, 77, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .faq-card.featured {
+            border-left: 4px solid #ff006e;
+            border: 2px solid #ff006e;
+        }
+
+        .faq-card h4 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .faq-card p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .faq-link {
+            color: #c94dff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .faq-link:hover {
+            color: #ff006e;
+        }
+
+        /* Doctor Report Section */
+        .report-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: rgba(30, 30, 60, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 77, 255, 0.15);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .report-left {
+            background: rgba(50, 50, 90, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            text-align: center;
+        }
+
+        .report-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .report-left h3 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-left p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+        }
+
+        .report-right h3 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .report-list {
+            list-style: none;
+        }
+
+        .report-list li {
+            color: #b0b0d0;
+            padding: 0.8rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .report-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #c94dff;
+            font-weight: bold;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.3s;
+        }
+
+        /* Family Section */
+        .family-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: rgba(30, 30, 60, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 77, 255, 0.15);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .family-left h3 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .family-list {
+            list-style: none;
+        }
+
+        .family-list li {
+            color: #b0b0d0;
+            padding: 0.8rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+
+        .family-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #c94dff;
+            font-weight: bold;
+        }
+
+        .family-right {
+            text-align: center;
+            background: rgba(50, 50, 90, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+        }
+
+        .family-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .family-right h4 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .family-right p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+        }
+
+        /* Specialists Section */
+        .specialists {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .specialists-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .specialist-card {
+            background: rgba(30, 30, 60, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .specialist-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 77, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
+        }
+
+        .specialist-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .specialist-card h4 {
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+        }
+
+        .specialist-card .role {
+            color: #c94dff;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .specialist-card p {
+            color: #b0b0d0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .specialist-link {
+            color: #c94dff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* How it works */
+        .how-it-works {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step-card {
+            background: rgba(30, 30, 60, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step-card h4 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            color: #b0b0d0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Floating Consultant UI */
+        .floating-consultant {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+            filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
+        }
+
+        .consultant-bubble {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 25px;
+            width: 360px;
+            box-shadow: 0 20px 60px rgba(201, 77, 255, 0.3);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .consultant-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 1.5rem 0;
+            border-bottom: none;
+        }
+
+        .consultant-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .consultant-bubble {
+            animation: bubblePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bubblePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 20px 60px rgba(201, 77, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 25px 70px rgba(201, 77, 255, 0.45);
+            }
+        }
+
+        .consultant-top {
+            padding: 1.5rem;
+            text-align: center;
+            flex: 0 0 auto;
+        }
+
+        .consultant-bottom {
+            background: rgba(20, 20, 40, 0.95);
+            padding: 1.5rem;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border-radius: 0 0 25px 25px;
+        }
+
+        .consultant-info h3 {
+            color: #ffffff;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .consultant-info p {
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .close-consultant {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ccc;
+            transition: 0.3s;
+        }
+
+        .close-consultant:hover {
+            color: #c94dff;
+        }
+
+        .consultant-message {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            padding: 0.8rem;
+            background: rgba(50, 50, 90, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(201, 77, 255, 0.3);
+        }
+
+        .consultant-input-area {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .consultant-input-area input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background: rgba(100, 60, 180, 0.4);
+            border: 1px solid rgba(201, 77, 255, 0.5);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .consultant-input-area input::placeholder {
+            color: #a080c0;
+        }
+
+        .consultant-input-area input:focus {
+            outline: none;
+            background: rgba(100, 60, 180, 0.6);
+            border-color: #ff006e;
+        }
+
+        .consultant-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .consultant-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .consultant-btn-primary {
+            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
+            color: white;
+        }
+
+        .consultant-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 77, 255, 0.3);
+        }
+
+        .consultant-btn-secondary {
+            background: rgba(201, 77, 255, 0.1);
+            color: #c94dff;
+            border: 1px solid rgba(201, 77, 255, 0.3);
+        }
+
+        .consultant-btn-secondary:hover {
+            background: rgba(201, 77, 255, 0.2);
+        }
+
+        /* Social Section */
+        .social-section {
+            max-width: 1400px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: rgba(30, 30, 60, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(201, 77, 255, 0.15);
+        }
+
+        .social-container {
+            text-align: center;
+        }
+
+        .social-description {
+            color: #b0b0d0;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(50, 50, 90, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 77, 255, 0.2);
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 77, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
+        }
+
+        .social-icon {
+            font-size: 3rem;
+        }
+
+        .social-name {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .social-desc {
+            color: #b0b0d0;
+            font-size: 0.85rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding: 3rem 2rem;
+            background: rgba(15, 15, 35, 0.8);
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+            text-align: center;
+            color: #808090;
+        }
+
+        footer a {
+            transition: 0.3s;
+        }
+
+        footer a:hover {
+            color: #ff006e;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .reviews-stats { grid-template-columns: repeat(2, 1fr); }
+            .faq-grid { grid-template-columns: repeat(2, 1fr); }
+            .specialists-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+            .report-section { grid-template-columns: 1fr; }
+            .family-section { grid-template-columns: 1fr; }
+            .social-links { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .hero { margin: 2rem auto; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .specialists-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+
+            .floating-consultant {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .consultant-bubble {
+                width: 280px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">💜</div>
+            <div class="logo-text">
+                <h1>LifePulse</h1>
+                <p>Контроль здоровья</p>
+            </div>
+        </div>
+        <button class="btn-top" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">Перейти в LifePulse Bot</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Контролируйте своё<br><span class="highlight">давление и здоровье<br>легко</span></h2>
+            <p>LifePulse — это ваш личный помощник для отслеживания давления, пульса, нагрузок и приёма лекарств. Получайте умные рекомендации от специалистов.</p>
+
+            <div class="hero-buttons">
+                <button class="btn-primary">Внести данные сейчас</button>
+                <button class="btn-secondary">Задать вопрос врачу</button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">активных пользователей</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">поддержка</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="heart-container">
+            <div class="heart"></div>
+        </div>
+    </section>
+
+    <!-- Metrics Input Section -->
+    <section class="metrics">
+        <h2 class="metrics-title">📊 Введите <span>ваши показатели</span></h2>
+        <div class="metrics-grid">
+            <div class="metric-input">
+                <label>Систолическое давление (мм рт.ст.)</label>
+                <input type="number" placeholder="120" min="0" max="300">
+            </div>
+            <div class="metric-input">
+                <label>Диастолическое давление (мм рт.ст.)</label>
+                <input type="number" placeholder="80" min="0" max="200">
+            </div>
+            <div class="metric-input">
+                <label>Пульс (уд./мин)</label>
+                <input type="number" placeholder="72" min="0" max="250">
+            </div>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-input">
+                <label>Кто вы?</label>
+                <select>
+                    <option>Выберите категорию</option>
+                    <option>Спортсмен</option>
+                    <option>Пожилой человек</option>
+                    <option>Гипертоник</option>
+                </select>
+            </div>
+            <div class="metric-input">
+                <label>Принимаете ли лекарства?</label>
+                <select>
+                    <option>Не принимаю</option>
+                    <option>Да, принимаю</option>
+                </select>
+            </div>
+            <div class="metric-input">
+                <label>Напоминание о лекарстве</label>
+                <input type="time" value="09:00">
+            </div>
+        </div>
+
+        <div class="metrics-actions">
+            <button class="btn-submit">💾 Сохранить показатели</button>
+            <button class="btn-clear">Очистить</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">🎯 Ключевые возможности</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📈</div>
+                <h3>История показателей</h3>
+                <p>Отслеживайте тренды давления и пульса с красивыми графиками. Видите улучшения!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💊</div>
+                <h3>Напоминания о лекарствах</h3>
+                <p>Не забывайте о таблетках. Умные напоминания придут ровно в нужное время.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍⚕️</div>
+                <h3>Консультации врачей</h3>
+                <p>Задавайте вопросы специалистам и получайте ответы с сылками на источники.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏃</div>
+                <h3>Индекс Руфье</h3>
+                <p>Узнайте готовность организма к нагрузкам. Важно для спортсменов!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Telegram интеграция</h3>
+                <p>Всё удобно в одном чате. Нет необходимости переключаться между приложениями.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>Фото тонометра</h3>
+                <p>Просто сфотографируй показания тонометра. ИИ автоматически распознает цифры и скрипт.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Голосовое внесение</h3>
+                <p>Скажи показания голосом. Приложение запишет и запомнит данные автоматически.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Безопасность данных</h3>
+                <p>Ваши данные защищены. Мы не передаём информацию третьим лицам.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍👩‍👧</div>
+                <h3>Семейный контроль</h3>
+                <p>Дети могут видеть здоровье родителей. Важно при критических значениях!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <h2 class="section-title">⭐ Отзывы пользователей</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "LifePulse изменил мою жизнь! Теперь я вижу тренды давления. Показываю отчёты врачу, и он впечатлён!"
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">👩</div>
+                    <div class="review-info">
+                        <h4>Мария Сидорова</h4>
+                        <p>Гипертоник, 45 лет</p>
+                        <p class="review-metric">📊 Давление нормализовалось на 15%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Как спортсмен, я использую индекс Руфье для отслеживания готовности к тренировкам. Суперно работает!"
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">🏃</div>
+                    <div class="review-info">
+                        <h4>Иван Петров</h4>
+                        <p>Спортсмен, 28 лет</p>
+                        <p class="review-metric">💪 Увеличил результаты на 20%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Семейный контроль спасает! Мой сын видит мои показатели, и я спокойна. Всё безопасно и понятно."
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">👵</div>
+                    <div class="review-info">
+                        <h4>Елена Морозова</h4>
+                        <p>Пожилая пациентка, 67 лет</p>
+                        <p class="review-metric">👨‍👩‍👧 Дети спокойны</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "OCR распознавание фото тонометра — это чудо! Не нужно вводить вручную. Просто снял фото!"
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">👨</div>
+                    <div class="review-info">
+                        <h4>Александр Иванов</h4>
+                        <p>Офис-воркер, 35 лет</p>
+                        <p class="review-metric">⏱️ Сэкономил 10 часов в месяц</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Голосовой ввод очень удобен! Спешу с работы, говорю показания, и всё записалось автоматически."
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">👩‍💼</div>
+                    <div class="review-info">
+                        <h4>Ольга Кузнецова</h4>
+                        <p>Бизнесвумен, 42 года</p>
+                        <p class="review-metric">🎤 Удобный интерфейс</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Напоминания о лекарствах спасают! Никогда не забываю пить таблетки в нужное время. Спасибо LifePulse!"
+                </div>
+                <div class="review-author">
+                    <div class="review-avatar">👴</div>
+                    <div class="review-info">
+                        <h4>Николай Соколов</h4>
+                        <p>Пенсионер, 72 года</p>
+                        <p class="review-metric">✅ Приём лекарств в норме</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="reviews-stats">
+            <div class="stat-item">
+                <div class="stat-big">10K+</div>
+                <div class="stat-small">активных пользователей</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-big">4.9★</div>
+                <div class="stat-small">средний рейтинг</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-big">98%</div>
+                <div class="stat-small">рекомендуют друзьям</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <h2 class="section-title">❓ Частые вопросы пользователей</h2>
+        <div class="faq-grid">
+            <div class="faq-card">
+                <h4>Какое нормальное давление?</h4>
+                <p>Нормальное давление — это 120 на 80. Но норма индивидуальна и зависит от возраста.</p>
+                <a href="#" class="faq-link">Спросить врача →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Как подготовиться спортсмену к тренировке?</h4>
+                <p>Предварьте свою подготовку: Руби в оптимальному пульсу. Если показатели в норме, можно тренироваться.</p>
+                <a href="#" class="faq-link">Спросить тренера →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Почему скачет давление?</h4>
+                <p>Причин много: стресс, упадок сил, неправильное питание, недосыпание и т.д. Смотрите анализ.</p>
+                <a href="#" class="faq-link">Запросить консультацию →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Можно ли мне заниматься спортом?</h4>
+                <p>Заход от ваших показателей LifePulse дает рекомендации на основе вашего данных и пульса.</p>
+                <a href="#" class="faq-link">Проверить рекомендацию →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Как часто измерять давление?</h4>
+                <p>Здоровому — 1 раз в год. Гипертонику — ежедневно утром и вечером. Смотрите график...</p>
+                <a href="#" class="faq-link">Спросить врача →</a>
+            </div>
+            <div class="faq-card featured">
+                <h4>Видит ли мои данные другие?</h4>
+                <p>Нет. Доступ имеют только вы и те, кому вы дали разрешение. Все данные защищены и зашифрованы.</p>
+                <a href="#" class="faq-link">Управлять доступом →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Как подключить родственников?</h4>
+                <p>Передавайте доступ детям или опекунам. Они увидят ваши показатели при критических значениях.</p>
+                <a href="#" class="faq-link">Подделитесь доступом →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Можно ли фотографировать тонометр?</h4>
+                <p>Да! Просто сфотографируй показания на экране тонометра. ИИ распознает и запишет цифры и скрипт.</p>
+                <a href="#" class="faq-link">Попробовать →</a>
+            </div>
+            <div class="faq-card">
+                <h4>Можно ли говорить показания голосом?</h4>
+                <p>Да! Просто скажи "Давление 140 на 90". Приложение поймет и запомнит автоматически.</p>
+                <a href="#" class="faq-link">Попробовать →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Report Section -->
+    <section class="report-section">
+        <div class="report-left">
+            <div class="report-icon">📊</div>
+            <h3>Красивые графики</h3>
+            <p>Видно тренды давления, давления и пульса за две недели</p>
+        </div>
+        <div class="report-right">
+            <h3>Что входит в отчёт?</h3>
+            <ul class="report-list">
+                <li>История показаний — все измерения за две недели</li>
+                <li>Графики — видна динамика давления и пульса</li>
+                <li>Лекарства — какие таблетки принимала, когда</li>
+                <li>Фото тонометра — оригинальные снимки показаний</li>
+                <li>Примечания — чего ты замечала каждый день</li>
+            </ul>
+            <button class="btn-download">🖨️ В Создать отчет для врача</button>
+        </div>
+    </section>
+
+    <!-- Family Control Section -->
+    <section class="family-section">
+        <div class="family-left">
+            <h3>👨‍👩‍👧 Семейный контроль</h3>
+            <p>Следите за здоровьем близких. Будьте спокойны, когда они здоровы!</p>
+            <h4 style="color: #e0e0e0; margin-top: 1.5rem; margin-bottom: 1rem;">Как это работает?</h4>
+            <ul class="family-list">
+                <li>Вы видите свои показатели давления!</li>
+                <li>Вы получаете код доступа</li>
+                <li>Можете передать код близкому человеку или опекуну</li>
+                <li>Рассчитаные истории и тренды</li>
+                <li>При критических значениях — срочные оповещения</li>
+            </ul>
+            <button class="btn-download">👨‍👩‍👧 Пригласить доступум</button>
+        </div>
+        <div class="family-right">
+            <div class="family-icon">👨‍👩‍👧‍👦</div>
+            <h4>Спокойствие за близких</h4>
+            <p>Зная, что со всеми хорошо с вашими родителями, бабушкой и дедушкой!</p>
+        </div>
+    </section>
+
+    <!-- Specialists Section -->
+    <section class="specialists">
+        <h2 class="section-title">👥 Наши специалисты</h2>
+        <div class="specialists-grid">
+            <div class="specialist-card">
+                <div class="specialist-avatar">👨‍⚕️</div>
+                <h4>Иван Петров</h4>
+                <p class="role">Кардиолог</p>
+                <p>10+ лет в кардиологии. Специалист по гипертонии и профилактике.</p>
+                <a href="#" class="specialist-link">Консультация →</a>
+            </div>
+            <div class="specialist-card">
+                <div class="specialist-avatar">👩‍⚕️</div>
+                <h4>Мария Сидорова</h4>
+                <p class="role">Врач-спортивный</p>
+                <p>Разбирается в спортивной медицине и оптимальному пульсу в тренировке. Автор статей в Рубе.</p>
+                <a href="#" class="specialist-link">Консультация →</a>
+            </div>
+            <div class="specialist-card">
+                <div class="specialist-avatar">👨‍⚕️</div>
+                <h4>Сергей Смирнов</h4>
+                <p class="role">Специалист по здоровью</p>
+                <p>Специалист по здоровью пожилых. Помогает пациентам с хроническими заболеваниями.</p>
+                <a href="#" class="specialist-link">Консультация →</a>
+            </div>
+            <div class="specialist-card">
+                <div class="specialist-avatar">👩‍⚕️</div>
+                <h4>Елена Морозова</h4>
+                <p class="role">Психолог</p>
+                <p>Сертифицированный психолог. Помогает спортсменам подобрать здоровый подход.</p>
+                <a href="#" class="specialist-link">Консультация →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <h2 class="section-title">🚀 Как это работает</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>Введите данные</h4>
+                <p>Введите показатели давления голосом, фото или текстом в приложение.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>Получите рекомендацию</h4>
+                <p>LifePulse проанализирует и даст совет: стоит ли в нагрузку или отдохнуть.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>Покажите врачу</h4>
+                <p>Сделайте отчет за две недели и покажите врачу. Красивые графики помогут диагностике.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h4>Делитесь с семьей</h4>
+                <p>Передайте доступ детям и родственникам. Они будут спокойны за вас!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>🎉 Начните прямо сейчас</h2>
+        <p>Присоединитесь к тысячам пользователей, которые уже контролируют свое здоровье</p>
+        <button class="btn-top" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">💬 Открыть LifePulse в Telegram</button>
+    </section>
+
+    <!-- Social Links Section -->
+    <section class="social-section">
+        <div class="social-container">
+            <h2 class="section-title">📱 Следите за нами в соцсетях</h2>
+            <p class="social-description">Полезные советы, истории пользователей и обновления проекта</p>
+
+            <div class="social-links">
+                <a href="https://instagram.com/lifepulse_health" target="_blank" class="social-link instagram">
+                    <span class="social-icon">📸</span>
+                    <span class="social-name">Instagram</span>
+                    <span class="social-desc">Советы по здоровью</span>
+                </a>
+                <a href="https://youtube.com/@lifepulse_channel" target="_blank" class="social-link youtube">
+                    <span class="social-icon">📹</span>
+                    <span class="social-name">YouTube</span>
+                    <span class="social-desc">Обучающие видео</span>
+                </a>
+                <a href="https://tiktok.com/@lifepulse_health" target="_blank" class="social-link tiktok">
+                    <span class="social-icon">🎵</span>
+                    <span class="social-name">TikTok</span>
+                    <span class="social-desc">Короткие советы</span>
+                </a>
+                <a href="https://t.me/lifepulse_assistant_bot" target="_blank" class="social-link telegram">
+                    <span class="social-icon">💬</span>
+                    <span class="social-name">Telegram Bot</span>
+                    <span class="social-desc">Помощник 24/7</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>LifePulse © 2026 | Проект Жанны для контроля здоровья</p>
+        <p style="margin-top: 0.5rem;">Создано с любовью 💜</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; color: #606080;">
+            Найдите нас: <a href="https://instagram.com/lifepulse_health" style="color: #c94dff; text-decoration: none;">Instagram</a> |
+            <a href="https://youtube.com/@lifepulse_channel" style="color: #c94dff; text-decoration: none;">YouTube</a> |
+            <a href="https://tiktok.com/@lifepulse_health" style="color: #c94dff; text-decoration: none;">TikTok</a>
+        </p>
+    </footer>
+
+    <!-- Floating Consultant Widget -->
+    <div class="floating-consultant" id="floatingConsultant">
+        <div class="consultant-bubble">
+            <div class="consultant-top">
+                <div class="consultant-header">
+                    <div class="consultant-avatar">👧✨</div>
+                    <div class="consultant-info">
+                        <h3>Ваш проводник</h3>
+                        <p>24/7</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="consultant-bottom">
+                <button class="close-consultant" onclick="document.getElementById('floatingConsultant').style.display='none'">×</button>
+
+                <div class="consultant-message">
+                    👋 Здравствуйте! Я ваш помощник в LifePulse. Подскажу всё о здоровье и давлении, а еще я просто внимательный слушатель, который всегда рядом. Если вам тревожно или нужно выговориться — я здесь!!!
+                </div>
+
+                <div class="consultant-input-area">
+                    <input type="text" placeholder="Напишите..." id="consultantInput">
+                    <button class="consultant-btn consultant-btn-primary" style="flex: 0 0 auto; padding: 0.7rem 1rem;" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">→</button>
+                </div>
+
+                <button class="consultant-btn consultant-btn-secondary" onclick="document.getElementById('floatingConsultant').style.display='none';">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
