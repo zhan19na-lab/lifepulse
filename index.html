@@ -25,14 +25,14 @@
             --card-bg:   rgba(143,168,130,.18);
             --card-bg2:  rgba(143,168,130,.28);
             --r:         22px;
-            --font-base: 17px;
+            --font-base: 19px;
         }
         html{scroll-behavior:smooth;font-size:var(--font-base);}
         body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--conifer);overflow-x:hidden;line-height:1.65;}
 
         /* ── FONT SIZE TOGGLE ── */
-        .font-lg{--font-base:19px;}
-        .font-xl{--font-base:22px;}
+        .font-lg{--font-base:22px;}
+        .font-xl{--font-base:25px;}
 
         /* ── NAV ── */
         nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 28px;transition:all .3s;}
@@ -78,7 +78,7 @@
         .hero-badge{display:inline-block;background:rgba(255,255,255,.28);border:1px solid rgba(255,255,255,.55);color:#ffffff;padding:8px 24px;border-radius:100px;font-size:.74rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:30px;backdrop-filter:blur(12px);text-shadow:0 1px 4px rgba(0,0,0,.3);}
         .hero-title{font-size:clamp(2.2rem,6vw,4.4rem);font-weight:300;color:#ffffff;line-height:1.18;letter-spacing:-.02em;margin-bottom:22px;text-shadow:0 2px 10px rgba(0,0,0,.45),0 4px 28px rgba(0,0,0,.32);}
         .hero-title strong{font-weight:700;color:#e8f8d4;text-shadow:0 2px 10px rgba(0,0,0,.45),0 4px 28px rgba(0,0,0,.32);}
-        .hero-sub{font-size:clamp(1rem,2.1vw,1.18rem);color:rgba(255,255,255,.92);line-height:1.78;margin-bottom:44px;font-weight:300;text-shadow:0 1px 6px rgba(0,0,0,.5),0 2px 14px rgba(0,0,0,.35);}
+        .hero-sub{font-size:clamp(1rem,2.1vw,1.18rem);color:#0a1a08;line-height:1.78;margin-bottom:44px;font-weight:600;text-shadow:0 1px 5px rgba(255,255,255,.7),0 2px 12px rgba(255,255,255,.5);}
         .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
         .btn-olive{background:linear-gradient(135deg,#7a9e52,#5a7a40);color:var(--white);border:none;padding:15px 36px;border-radius:100px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .3s;box-shadow:0 6px 28px rgba(90,122,64,.5);letter-spacing:.3px;}
         .btn-olive:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(90,122,64,.6);}
@@ -96,9 +96,9 @@
         section{padding:88px 32px;}
         .container{max-width:1280px;margin:0 auto;}
         .s-label{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--sage-d);margin-bottom:14px;display:block;}
-        .s-title{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:300;line-height:1.22;color:var(--conifer);margin-bottom:18px;}
+        .s-title{font-size:clamp(2.3rem,4.8vw,3.6rem);font-weight:300;line-height:1.2;color:var(--conifer);margin-bottom:20px;}
         .s-title strong{font-weight:700;color:var(--sage-deep);}
-        .s-sub{font-size:1.05rem;color:var(--muted);line-height:1.8;max-width:580px;}
+        .s-sub{font-size:1.12rem;color:var(--muted);line-height:1.82;max-width:600px;}
         .fade-up{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
         .fade-up.visible{opacity:1;transform:translateY(0);}
 
@@ -145,6 +145,17 @@
         .r-badge{background:rgba(107,133,96,.14);border:1px solid rgba(107,133,96,.22);padding:3px 10px;border-radius:100px;font-size:.72rem;color:var(--sage-deep);}
         .r-insight{font-size:.8rem;color:var(--muted);line-height:1.6;font-style:italic;margin-top:7px;}
         .recipe-prompt{padding:32px;text-align:center;color:var(--muted);font-size:.85rem;}
+
+        /* ── VOICE / FREE INGREDIENT INPUT ── */
+        .ing-input-wrap{position:relative;margin-bottom:12px;}
+        .ing-textarea{width:100%;border:1.5px solid var(--border);border-radius:14px;padding:14px 58px 14px 16px;font-size:1rem;color:var(--conifer);background:var(--white);outline:none;resize:vertical;line-height:1.65;transition:border-color .2s;font-family:inherit;min-height:90px;}
+        .ing-textarea:focus{border-color:var(--olive);}
+        .ing-textarea::placeholder{color:var(--muted);}
+        .voice-btn{position:absolute;right:10px;top:10px;background:linear-gradient(135deg,var(--olive),var(--sage-d));border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:19px;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 3px 10px rgba(107,133,96,.35);}
+        .voice-btn:hover{transform:scale(1.1);}
+        .voice-btn.recording{background:linear-gradient(135deg,#e05050,#c03030);animation:vpulse 1s ease-in-out infinite;}
+        @keyframes vpulse{0%,100%{box-shadow:0 3px 10px rgba(200,50,50,.4);}50%{box-shadow:0 3px 22px rgba(200,50,50,.7);}}
+        .voice-status{font-size:.82rem;color:var(--olive);min-height:20px;margin-bottom:8px;text-align:center;}
 
         /* ── ENDORSEMENTS ── */
         .end-sec{background:linear-gradient(180deg,#ffffff 0%,#f0fbe8 100%);border-top:1px solid rgba(140,190,90,.18);border-bottom:1px solid rgba(140,190,90,.18);}
@@ -355,6 +366,34 @@
     </div>
 </section>
 
+<!-- LIBRARY -->
+<section id="library" class="lib-sec">
+    <div class="container">
+        <span class="s-label fade-up">Знания</span>
+        <h2 class="s-title fade-up">Библиотека<br><strong>психологии</strong></h2>
+        <p class="s-sub fade-up">Авторские саммари лучших книг в форматах текста и аудио. Юридически корректно, без нарушения авторских прав.</p>
+        <div class="b-tabs fade-up">
+            <button class="b-tab active" onclick="filterBk('all',this)">Все книги</button>
+            <button class="b-tab" onclick="filterBk('men',this)">Для мужчин</button>
+            <button class="b-tab" onclick="filterBk('women',this)">Для женщин</button>
+            <button class="b-tab" onclick="filterBk('uni',this)">Универсальные</button>
+        </div>
+        <div class="b-grid fade-up">
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#c8ddb8,#7a9e52)">📖</div><div class="bk-info"><div class="bk-title">Атомные привычки</div><div class="bk-author">Джеймс Клир</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8c8,#a45a7a)">🌸</div><div class="bk-info"><div class="bk-title">Женщины, которые любят слишком сильно</div><div class="bk-author">Робин Норвуд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#8fa882,#3d5c38)">⚡</div><div class="bk-info"><div class="bk-title">12 правил жизни</div><div class="bk-author">Джордан Питерсон</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8ddc8,#3d7a52)">🧘</div><div class="bk-info"><div class="bk-title">Сила настоящего</div><div class="bk-author">Экхарт Толле</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#c8b8dd,#7a52a4)">💜</div><div class="bk-info"><div class="bk-title">Границы. Когда говорить да, когда — нет</div><div class="bk-author">Г. Клауд, Д. Таунсенд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#ddc8b8,#7a5238)">🔥</div><div class="bk-info"><div class="bk-title">Человек в поисках смысла</div><div class="bk-author">Виктор Франкл</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8c8dd,#385c7a)">🌊</div><div class="bk-info"><div class="bk-title">Эмоциональный интеллект</div><div class="bk-author">Дэниел Гоулман</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8d0,#a4527a)">🌺</div><div class="bk-info"><div class="bk-title">Перестань быть хорошей</div><div class="bk-author">Ирина Млодик</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+        </div>
+        <div style="text-align:center;margin-top:32px;">
+            <button class="btn-olive" style="background:transparent;border:2px solid var(--sage-d);color:var(--sage-deep);box-shadow:none;" onclick="openM('lib-m')">Смотреть все книги →</button>
+        </div>
+    </div>
+</section>
+
 <!-- PERSONALIZATION -->
 <section class="plan-sec">
     <div class="container">
@@ -375,6 +414,41 @@
                 <span class="p-tag">🧘 Управление стрессом</span>
             </div>
             <button class="btn-olive" onclick="openM('plan-m')">Получить персональный план здоровья →</button>
+        </div>
+    </div>
+</section>
+
+<!-- MOCKUPS -->
+<section class="mock-sec">
+    <div class="container">
+        <span class="s-label fade-up">Ваше здоровье в руках</span>
+        <h2 class="s-title fade-up">Всё в одном<br><strong>приложении</strong></h2>
+        <div class="mock-wrap fade-up">
+            <div class="phone">
+                <div class="p-screen">
+                    <div class="p-hdr">📊 Дашборд</div>
+                    <div class="p-metric"><span class="p-ml">Давление</span><span class="p-mv">118/76</span></div>
+                    <div class="p-metric"><span class="p-ml">Пульс</span><span class="p-mv">68 уд/мин</span></div>
+                    <div class="p-chart"></div>
+                </div>
+            </div>
+            <div class="phone center">
+                <div class="p-screen">
+                    <div class="p-hdr">🤖 LifePulse Бот</div>
+                    <div class="m-bubble m-ai" style="font-size:.62rem;margin-bottom:6px;">Ваш план на сегодня готов. Как вы себя чувствуете?</div>
+                    <div class="m-bubble m-user" style="font-size:.62rem;">Немного устал после тренировки</div>
+                    <div class="m-bubble m-ai" style="font-size:.62rem;">Рекомендую лёгкий ужин с белком. Показать рецепт? 🥗</div>
+                </div>
+            </div>
+            <div class="phone">
+                <div class="p-screen">
+                    <div class="p-hdr">📚 Библиотека</div>
+                    <div class="p-metric"><span class="p-ml">Читаете сейчас</span><span style="font-size:.95rem">📖</span></div>
+                    <div style="font-size:.65rem;color:var(--pistachio);margin-top:7px;">"Атомные привычки"</div>
+                    <div style="font-size:.58rem;color:rgba(200,221,184,.55);">Джеймс Клир · Глава 3</div>
+                    <div class="p-chart" style="margin-top:9px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -429,21 +503,13 @@
         </div>
         <div class="fridge-grid fade-up">
             <div class="f-panel">
-                <h3>🧊 Отметьте продукты из холодильника:</h3>
-                <div class="ing-grid" id="ings">
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Курица</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Яйца</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Кабачок</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Гречка</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Творог</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Томаты</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Брокколи</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Лосось</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Овсянка</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Авокадо</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Шпинат</label>
-                    <label class="ing-chip" onclick="this.classList.toggle('on');calcR()"><input type="checkbox">Рис</label>
+                <h3>🧊 Что есть в холодильнике?</h3>
+                <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px;line-height:1.55;">Напишите продукты через запятую или нажмите 🎤 и надиктуйте — система составит рецепт</p>
+                <div class="ing-input-wrap">
+                    <textarea id="ingText" class="ing-textarea" placeholder="Например: курица, помидоры, яйца, брокколи, рис, авокадо..." oninput="processIngText()"></textarea>
+                    <button class="voice-btn" id="voiceBtn" onclick="startVoice()" title="Надиктовать продукты">🎤</button>
                 </div>
+                <div id="voiceStatus" class="voice-status"></div>
             </div>
             <div>
                 <div class="recipe-box" id="rBox">
@@ -491,41 +557,6 @@
     </div>
 </section>
 
-<!-- MOCKUPS -->
-<section class="mock-sec">
-    <div class="container">
-        <span class="s-label fade-up">Ваше здоровье в руках</span>
-        <h2 class="s-title fade-up">Всё в одном<br><strong>приложении</strong></h2>
-        <div class="mock-wrap fade-up">
-            <div class="phone">
-                <div class="p-screen">
-                    <div class="p-hdr">📊 Дашборд</div>
-                    <div class="p-metric"><span class="p-ml">Давление</span><span class="p-mv">118/76</span></div>
-                    <div class="p-metric"><span class="p-ml">Пульс</span><span class="p-mv">68 уд/мин</span></div>
-                    <div class="p-chart"></div>
-                </div>
-            </div>
-            <div class="phone center">
-                <div class="p-screen">
-                    <div class="p-hdr">🤖 LifePulse Бот</div>
-                    <div class="m-bubble m-ai" style="font-size:.62rem;margin-bottom:6px;">Ваш план на сегодня готов. Как вы себя чувствуете?</div>
-                    <div class="m-bubble m-user" style="font-size:.62rem;">Немного устал после тренировки</div>
-                    <div class="m-bubble m-ai" style="font-size:.62rem;">Рекомендую лёгкий ужин с белком. Показать рецепт? 🥗</div>
-                </div>
-            </div>
-            <div class="phone">
-                <div class="p-screen">
-                    <div class="p-hdr">📚 Библиотека</div>
-                    <div class="p-metric"><span class="p-ml">Читаете сейчас</span><span style="font-size:.95rem">📖</span></div>
-                    <div style="font-size:.65rem;color:var(--pistachio);margin-top:7px;">"Атомные привычки"</div>
-                    <div style="font-size:.58rem;color:rgba(200,221,184,.55);">Джеймс Клир · Глава 3</div>
-                    <div class="p-chart" style="margin-top:9px;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- DIALOG -->
 <section id="dialog" class="dialog-sec">
     <div class="container" style="text-align:center;">
@@ -548,34 +579,6 @@
             </div>
         </div>
         <button class="btn-olive" style="margin-top:26px;" onclick="openM('dial-m')">Открыть разговор по душам</button>
-    </div>
-</section>
-
-<!-- LIBRARY -->
-<section id="library" class="lib-sec">
-    <div class="container">
-        <span class="s-label fade-up">Знания</span>
-        <h2 class="s-title fade-up">Библиотека<br><strong>психологии</strong></h2>
-        <p class="s-sub fade-up">Авторские саммари лучших книг в форматах текста и аудио. Юридически корректно, без нарушения авторских прав.</p>
-        <div class="b-tabs fade-up">
-            <button class="b-tab active" onclick="filterBk('all',this)">Все книги</button>
-            <button class="b-tab" onclick="filterBk('men',this)">Для мужчин</button>
-            <button class="b-tab" onclick="filterBk('women',this)">Для женщин</button>
-            <button class="b-tab" onclick="filterBk('uni',this)">Универсальные</button>
-        </div>
-        <div class="b-grid fade-up">
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#c8ddb8,#7a9e52)">📖</div><div class="bk-info"><div class="bk-title">Атомные привычки</div><div class="bk-author">Джеймс Клир</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8c8,#a45a7a)">🌸</div><div class="bk-info"><div class="bk-title">Женщины, которые любят слишком сильно</div><div class="bk-author">Робин Норвуд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#8fa882,#3d5c38)">⚡</div><div class="bk-info"><div class="bk-title">12 правил жизни</div><div class="bk-author">Джордан Питерсон</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8ddc8,#3d7a52)">🧘</div><div class="bk-info"><div class="bk-title">Сила настоящего</div><div class="bk-author">Экхарт Толле</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#c8b8dd,#7a52a4)">💜</div><div class="bk-info"><div class="bk-title">Границы. Когда говорить да, когда — нет</div><div class="bk-author">Г. Клауд, Д. Таунсенд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#ddc8b8,#7a5238)">🔥</div><div class="bk-info"><div class="bk-title">Человек в поисках смысла</div><div class="bk-author">Виктор Франкл</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8c8dd,#385c7a)">🌊</div><div class="bk-info"><div class="bk-title">Эмоциональный интеллект</div><div class="bk-author">Дэниел Гоулман</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8d0,#a4527a)">🌺</div><div class="bk-info"><div class="bk-title">Перестань быть хорошей</div><div class="bk-author">Ирина Млодик</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-        </div>
-        <div style="text-align:center;margin-top:32px;">
-            <button class="btn-olive" style="background:transparent;border:2px solid var(--sage-d);color:var(--sage-deep);box-shadow:none;" onclick="openM('lib-m')">Смотреть все книги →</button>
-        </div>
     </div>
 </section>
 
@@ -761,18 +764,43 @@ if(localStorage.getItem('ck'))document.getElementById('cookie').classList.add('g
 function sel(el){el.classList.toggle('sel');}
 function showPlan(){const r=document.getElementById('planRes');r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'nearest'});}
 
+// ── VOICE INPUT ──
+function startVoice(){
+    const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+    const btn=document.getElementById('voiceBtn');
+    const status=document.getElementById('voiceStatus');
+    if(!SR){status.textContent='Голосовой ввод не поддерживается в этом браузере. Попробуйте Chrome.';return;}
+    const rec=new SR();
+    rec.lang='ru-RU';rec.continuous=false;rec.interimResults=false;
+    btn.classList.add('recording');status.textContent='🎤 Говорите — называйте продукты через запятую...';
+    rec.onresult=(e)=>{
+        const text=e.results[0][0].transcript;
+        const inp=document.getElementById('ingText');
+        inp.value=inp.value?inp.value+', '+text:text;
+        processIngText();
+    };
+    rec.onerror=()=>{btn.classList.remove('recording');status.textContent='Не удалось распознать — попробуйте ещё раз.';};
+    rec.onend=()=>{btn.classList.remove('recording');setTimeout(()=>{status.textContent='';},2500);};
+    rec.start();
+}
+
 // ── RECIPES ──
 const rData=[
     {n:'🍳 Яичница с томатами и зеленью',c:'240 ккал',p:'18г белка',b:'8г углеводов',f:'16г жиров',i:'✅ Лёгкий завтрак. Ликопин томатов снижает риск сосудистых нарушений.'},
     {n:'🥗 Куриная грудка с брокколи и гречкой',c:'380 ккал',p:'42г белка',b:'32г углеводов',f:'8г жиров',i:'✅ Идеально для спортсменов: полноценный белок + медленные углеводы. Брокколи снижает давление.'},
     {n:'🍲 Суп из лосося со шпинатом',c:'290 ккал',p:'28г белка',b:'12г углеводов',f:'14г жиров',i:'✅ Омега-3 нормализует давление. Шпинат — магний и железо для сердца.'},
     {n:'🥣 Овсянка с авокадо и яйцом',c:'420 ккал',p:'22г белка',b:'38г углеводов',f:'18г жиров',i:'✅ Клетчатка овса снижает холестерин. Калий авокадо — для гипертоников.'},
-    {n:'🧆 Творожники с зеленью',c:'260 ккал',p:'26г белка',b:'14г углеводов',f:'10г жиров',i:'✅ Высокий белок при низких калориях. Отлично для снижения веса.'}
+    {n:'🧆 Творожники с зеленью',c:'260 ккал',p:'26г белка',b:'14г углеводов',f:'10г жиров',i:'✅ Высокий белок при низких калориях. Отлично для снижения веса.'},
+    {n:'🥘 Тушёные овощи с рисом',c:'310 ккал',p:'12г белка',b:'48г углеводов',f:'7г жиров',i:'✅ Лёгкий ужин. Клетчатка овощей улучшает пищеварение и снижает холестерин.'},
+    {n:'🫕 Гречневая каша с кабачком',c:'280 ккал',p:'14г белка',b:'38г углеводов',f:'6г жиров',i:'✅ Рутин гречки укрепляет сосуды. Кабачок — низкокалорийный источник калия.'}
 ];
-function calcR(){
-    const n=document.querySelectorAll('.ing-chip.on').length;
+
+function processIngText(){
+    const val=(document.getElementById('ingText').value||'').toLowerCase().trim();
     const box=document.getElementById('rBox'),prom=document.getElementById('rPrompt');
-    if(n>=2){const r=rData[Math.floor(Math.random()*rData.length)];
+    const words=val.split(/[\s,;]+/).filter(w=>w.length>1);
+    if(words.length>=2){
+        const r=rData[Math.floor(Math.random()*rData.length)];
         document.getElementById('rName').textContent=r.n;
         document.getElementById('rMac').innerHTML=`<span class="r-badge">🔥 ${r.c}</span><span class="r-badge">💪 ${r.p}</span><span class="r-badge">🌾 ${r.b}</span><span class="r-badge">🫒 ${r.f}</span>`;
         document.getElementById('rIns').textContent=r.i;
