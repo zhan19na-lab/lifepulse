@@ -236,6 +236,25 @@
         .f-bottom{max-width:1280px;margin:0 auto;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
         .f-legal{font-size:.68rem;color:rgba(200,221,184,.38);line-height:1.5;}
 
+        /* ── BOOK READER MODAL ── */
+        .book-cover-lg{height:110px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;margin-bottom:18px;}
+        .book-meta{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+        .book-meta-title{font-size:1.08rem;font-weight:700;color:var(--conifer);}
+        .book-meta-author{font-size:.88rem;color:var(--muted);}
+        .book-read-body{font-size:.97rem;color:var(--sage-d);line-height:1.88;}
+        .book-read-body p{margin-bottom:1.1em;}
+        .book-read-body .bk-key{display:inline-block;background:rgba(122,158,82,.14);border:1px solid rgba(122,158,82,.28);border-radius:8px;padding:3px 10px;font-size:.82rem;color:var(--sage-deep);margin:2px 3px 2px 0;}
+        .book-read-body h4{font-size:1rem;font-weight:700;color:var(--sage-deep);margin:1.4em 0 .5em;}
+        .audio-player{background:linear-gradient(135deg,rgba(200,221,184,.3),rgba(163,194,120,.2));border:1px solid rgba(122,158,82,.28);border-radius:16px;padding:22px 24px;margin-bottom:20px;}
+        .audio-title{font-size:.88rem;font-weight:700;color:var(--conifer);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+        .audio-controls{display:flex;align-items:center;gap:12px;}
+        .audio-play{background:linear-gradient(135deg,var(--olive),var(--sage-d));border:none;border-radius:50%;width:46px;height:46px;cursor:pointer;font-size:18px;color:white;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+        .audio-play:hover{transform:scale(1.08);}
+        .audio-bar{flex:1;height:5px;background:rgba(107,133,96,.2);border-radius:100px;position:relative;cursor:pointer;}
+        .audio-progress{height:100%;width:0%;background:linear-gradient(90deg,var(--olive),var(--sage-d));border-radius:100px;transition:width .4s;}
+        .audio-time{font-size:.75rem;color:var(--muted);white-space:nowrap;}
+        .audio-note{font-size:.78rem;color:var(--muted);margin-top:10px;font-style:italic;}
+
         /* ── MOBILE ── */
         @media(max-width:600px){
             section{padding:64px 18px;}
@@ -465,14 +484,14 @@
             <button class="b-tab" onclick="filterBk('uni',this)">Универсальные</button>
         </div>
         <div class="b-grid fade-up">
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#c8ddb8,#7a9e52)">📖</div><div class="bk-info"><div class="bk-title">Атомные привычки</div><div class="bk-author">Джеймс Клир</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8c8,#a45a7a)">🌸</div><div class="bk-info"><div class="bk-title">Женщины, которые любят слишком сильно</div><div class="bk-author">Робин Норвуд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#8fa882,#3d5c38)">⚡</div><div class="bk-info"><div class="bk-title">12 правил жизни</div><div class="bk-author">Джордан Питерсон</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8ddc8,#3d7a52)">🧘</div><div class="bk-info"><div class="bk-title">Сила настоящего</div><div class="bk-author">Экхарт Толле</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#c8b8dd,#7a52a4)">💜</div><div class="bk-info"><div class="bk-title">Границы. Когда говорить да, когда — нет</div><div class="bk-author">Г. Клауд, Д. Таунсенд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#ddc8b8,#7a5238)">🔥</div><div class="bk-info"><div class="bk-title">Человек в поисках смысла</div><div class="bk-author">Виктор Франкл</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8c8dd,#385c7a)">🌊</div><div class="bk-info"><div class="bk-title">Эмоциональный интеллект</div><div class="bk-author">Дэниел Гоулман</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
-            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8d0,#a4527a)">🌺</div><div class="bk-info"><div class="bk-title">Перестань быть хорошей</div><div class="bk-author">Ирина Млодик</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#c8ddb8,#7a9e52)">📖</div><div class="bk-info"><div class="bk-title">Атомные привычки</div><div class="bk-author">Джеймс Клир</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(0,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(0,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8c8,#a45a7a)">🌸</div><div class="bk-info"><div class="bk-title">Женщины, которые любят слишком сильно</div><div class="bk-author">Робин Норвуд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(1,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(1,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#8fa882,#3d5c38)">⚡</div><div class="bk-info"><div class="bk-title">12 правил жизни</div><div class="bk-author">Джордан Питерсон</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(2,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(2,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8ddc8,#3d7a52)">🧘</div><div class="bk-info"><div class="bk-title">Сила настоящего</div><div class="bk-author">Экхарт Толле</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(3,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(3,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#c8b8dd,#7a52a4)">💜</div><div class="bk-info"><div class="bk-title">Границы. Когда говорить да, когда — нет</div><div class="bk-author">Г. Клауд, Д. Таунсенд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(4,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(4,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#ddc8b8,#7a5238)">🔥</div><div class="bk-info"><div class="bk-title">Человек в поисках смысла</div><div class="bk-author">Виктор Франкл</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(5,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(5,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#b8c8dd,#385c7a)">🌊</div><div class="bk-info"><div class="bk-title">Эмоциональный интеллект</div><div class="bk-author">Дэниел Гоулман</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(6,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(6,'listen')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#ddb8d0,#a4527a)">🌺</div><div class="bk-info"><div class="bk-title">Перестань быть хорошей</div><div class="bk-author">Ирина Млодик</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="readBook(7,'read')">📖 Читать</button><button class="bk-btn bk-listen" onclick="readBook(7,'listen')">🎧 Слушать</button></div></div></div>
         </div>
         <div style="text-align:center;margin-top:32px;">
             <button class="btn-olive" style="background:transparent;border:2px solid var(--sage-d);color:var(--sage-deep);box-shadow:none;" onclick="openM('lib-m')">Смотреть все книги →</button>
@@ -741,6 +760,17 @@
     </div>
 </div>
 
+<!-- BOOK READER MODAL -->
+<div class="overlay" id="book-m">
+    <div class="m-box" style="max-width:640px;">
+        <div class="m-hdr" id="bookMHdr">
+            <div class="m-title" id="bookMTitle">Читать</div>
+            <button class="m-close" onclick="closeM('book-m')">✕</button>
+        </div>
+        <div class="m-body" id="bookMBody"></div>
+    </div>
+</div>
+
 <!-- LIBRARY MODAL -->
 <div class="overlay" id="lib-m">
     <div class="m-box" style="max-width:620px;">
@@ -852,6 +882,70 @@ function processIngText(){
         document.getElementById('rIns').textContent=r.i;
         box.classList.add('show');prom.style.display='none';
     }else{box.classList.remove('show');prom.style.display='block';}
+}
+
+// ── BOOK READER ──
+const books=[
+{title:'Атомные привычки',author:'Джеймс Клир',icon:'📖',grad:'linear-gradient(135deg,#c8ddb8,#7a9e52)',
+ summary:`<h4>О чём книга</h4><p>Джеймс Клир доказывает: большие результаты рождаются не из грандиозных решений, а из крошечных ежедневных улучшений. Улучшение всего на 1% каждый день даёт рост в 37 раз за год — и это не метафора, а математика.</p><h4>Главная идея</h4><p>Мы думаем, что результат — это цель. Но на самом деле результат — это система. Человек, который хочет «похудеть», провалится. Человек, который строит личность спортсмена, — нет. Клир называет это «голосованием за себя»: каждое маленькое действие — голос за того человека, которым вы хотите стать.</p><h4>Четыре закона изменения поведения</h4><p>1. <b>Сделай очевидным</b> — создай стимул. 2. <b>Сделай привлекательным</b> — свяжи с тем, что любишь. 3. <b>Сделай простым</b> — снизь усилие. 4. <b>Сделай приятным</b> — добавь мгновенную награду.</p><p><span class="bk-key">🔑 Привычки</span><span class="bk-key">🔑 Самодисциплина</span><span class="bk-key">🔑 Продуктивность</span></p>`},
+{title:'Женщины, которые любят слишком сильно',author:'Робин Норвуд',icon:'🌸',grad:'linear-gradient(135deg,#ddb8c8,#a45a7a)',
+ summary:`<h4>О чём книга</h4><p>Робин Норвуд — психотерапевт, которая десятилетиями работала с женщинами в разрушительных отношениях. Книга написана с теплом и без осуждения: она не говорит «ты виновата», она объясняет — откуда берётся эта сила притяжения к людям, которые причиняют боль.</p><h4>Главная идея</h4><p>«Слишком сильная любовь» — это не любовь, а тревога. Женщина, выросшая в дисфункциональной семье, научилась отождествлять тревогу с чувством влюблённости. Спокойный, заботливый партнёр кажется «скучным», а недоступный — «настоящим».</p><h4>Путь к переменам</h4><p>Норвуд не даёт быстрых рецептов. Она предлагает работу с корнями: терапия, группы поддержки, честный взгляд на детские паттерны. Первый шаг — признать проблему. Второй — перестать пытаться изменить другого и начать менять себя.</p><p><span class="bk-key">🔑 Отношения</span><span class="bk-key">🔑 Самооценка</span><span class="bk-key">🔑 Созависимость</span></p>`},
+{title:'12 правил жизни',author:'Джордан Питерсон',icon:'⚡',grad:'linear-gradient(135deg,#8fa882,#3d5c38)',
+ summary:`<h4>О чём книга</h4><p>Канадский психолог Джордан Питерсон собрал 12 принципов, которые помогают мужчинам (и не только) выстоять перед хаосом современной жизни. Книга опирается на юнгианскую психологию, нейробиологию и архетипические мифы.</p><h4>Главная идея</h4><p>Жизнь — это страдание. Но страдание без смысла невыносимо, а страдание с целью — терпимо. Питерсон призывает взять ответственность за своё существование, перестать обвинять обстоятельства и начать с малого: «Приведи в порядок свою комнату, прежде чем критиковать мир».</p><h4>Ключевые правила</h4><p>Стой прямо — поза влияет на самооценку. Заботься о себе так, как заботился бы о человеке, которого любишь. Сравнивай себя с тем, кем ты был вчера, а не с другими. Говори правду — или хотя бы не лги.</p><p><span class="bk-key">🔑 Ответственность</span><span class="bk-key">🔑 Смысл</span><span class="bk-key">🔑 Мужество</span></p>`},
+{title:'Сила настоящего',author:'Экхарт Толле',icon:'🧘',grad:'linear-gradient(135deg,#b8ddc8,#3d7a52)',
+ summary:`<h4>О чём книга</h4><p>Экхарт Толле пережил внезапное духовное пробуждение после глубокой депрессии. «Сила настоящего» — попытка описать словами то, что слова едва могут выразить: состояние полного присутствия в моменте «сейчас».</p><h4>Главная идея</h4><p>Большинство человеческих страданий создаёт ум: он либо застрял в прошлом (сожаление, вина), либо проецирует тревоги в будущее. Настоящий момент — единственное место, где существует жизнь. Толле называет постоянную мыслительную активность «эго» и показывает, как выйти за её пределы.</p><h4>Практика</h4><p>Не нужно медитировать часами. Достаточно периодически задавать вопрос: «Что происходит прямо сейчас внутри меня?» — и наблюдать без оценки. Это разрывает автоматизм мышления и возвращает в настоящее.</p><p><span class="bk-key">🔑 Осознанность</span><span class="bk-key">🔑 Медитация</span><span class="bk-key">🔑 Стресс</span></p>`},
+{title:'Границы. Когда говорить да, когда — нет',author:'Г. Клауд, Д. Таунсенд',icon:'💜',grad:'linear-gradient(135deg,#c8b8dd,#7a52a4)',
+ summary:`<h4>О чём книга</h4><p>Клинические психологи Генри Клауд и Джон Таунсенд объясняют, почему многие люди не умеют говорить «нет» — и к чему это приводит. Книга написана в христианском контексте, но её принципы универсальны.</p><h4>Главная идея</h4><p>Границы — это не стены. Это ограждения, которые определяют: где заканчиваешься ты и начинается другой человек. Отсутствие границ ведёт к накоплению обиды, хронической усталости и ощущению, что тобой пользуются.</p><h4>Как выстраивать границы</h4><p>Начни с малого: скажи «нет» одной просьбе, которую раньше выполнял через силу. Не объясняй долго и не извиняйся. Граница — это не агрессия, это уважение к себе. Люди, которые действительно тебя уважают, примут «нет».</p><p><span class="bk-key">🔑 Границы</span><span class="bk-key">🔑 Отношения</span><span class="bk-key">🔑 Самоуважение</span></p>`},
+{title:'Человек в поисках смысла',author:'Виктор Франкл',icon:'🔥',grad:'linear-gradient(135deg,#ddc8b8,#7a5238)',
+ summary:`<h4>О чём книга</h4><p>Виктор Франкл — психиатр, переживший нацистские концентрационные лагеря, включая Освенцим. В книге он описывает свой опыт и рождённую из него терапию — логотерапию: лечение смыслом.</p><h4>Главная идея</h4><p>У человека можно отнять всё — кроме способности выбрать своё отношение к происходящему. Франкл заметил: выживали не самые сильные физически, а те, кто сохранял внутренний смысл. «Тот, кто знает ЗАЧЕМ жить, вынесет почти любое КАК» — это Ницше, но Франкл сделал это основой терапии.</p><h4>Три пути к смыслу</h4><p>1. Через <b>творчество</b> — что ты создаёшь. 2. Через <b>переживание</b> — что ты воспринимаешь, кого любишь. 3. Через <b>страдание</b> — как ты принимаешь неизбежное. Смысл можно найти в любой ситуации.</p><p><span class="bk-key">🔑 Смысл жизни</span><span class="bk-key">🔑 Стойкость</span><span class="bk-key">🔑 Психология</span></p>`},
+{title:'Эмоциональный интеллект',author:'Дэниел Гоулман',icon:'🌊',grad:'linear-gradient(135deg,#b8c8dd,#385c7a)',
+ summary:`<h4>О чём книга</h4><p>В 1995 году Дэниел Гоулман изменил представление о том, что такое «умный человек». Оказалось, IQ — лишь часть уравнения. Исследования показали: люди с высоким EQ (эмоциональным интеллектом) достигают большего в карьере и отношениях, чем люди с высоким IQ.</p><h4>Пять составляющих EQ</h4><p>1. <b>Самосознание</b> — понимать свои эмоции. 2. <b>Саморегуляция</b> — управлять ими. 3. <b>Мотивация</b> — двигаться к цели несмотря на препятствия. 4. <b>Эмпатия</b> — чувствовать других. 5. <b>Социальные навыки</b> — выстраивать отношения.</p><h4>Почему это важно для здоровья</h4><p>Подавленные эмоции повышают уровень кортизола и адреналина — что напрямую влияет на давление и иммунитет. Умение осознавать и проживать эмоции — это не мягкость, а физическое здоровье.</p><p><span class="bk-key">🔑 Эмоции</span><span class="bk-key">🔑 EQ</span><span class="bk-key">🔑 Здоровье</span></p>`},
+{title:'Перестань быть хорошей',author:'Ирина Млодик',icon:'🌺',grad:'linear-gradient(135deg,#ddb8d0,#a4527a)',
+ summary:`<h4>О чём книга</h4><p>Ирина Млодик — российский психолог и психотерапевт. Её книга — о женщинах, которых с детства учили быть «хорошими»: послушными, удобными, всегда улыбающимися. И о цене, которую они за это платят.</p><h4>Главная идея</h4><p>«Хорошая девочка» вырастает в женщину, которая постоянно угождает другим в ущерб себе. Она боится конфликтов, чувствует вину за чужое недовольство и не знает, чего хочет сама. Млодик мягко, но честно показывает: это не добродетель, а травма.</p><h4>Путь к себе</h4><p>Первый шаг — разрешить себе иметь желания, не согласующиеся с ожиданиями других. Второй — научиться чувствовать злость как сигнал, а не как грех. Третий — сказать «я хочу» вместо «мне всё равно». Книга написана с теплотой и даёт ощущение, что тебя наконец-то поняли.</p><p><span class="bk-key">🔑 Самооценка</span><span class="bk-key">🔑 Границы</span><span class="bk-key">🔑 Для женщин</span></p>`}
+];
+
+let audioTimer=null;
+function readBook(idx,mode){
+    const b=books[idx];
+    document.getElementById('bookMTitle').textContent = mode==='read' ? '📖 '+b.title : '🎧 '+b.title;
+    const body=document.getElementById('bookMBody');
+    if(mode==='read'){
+        body.innerHTML=`<div class="book-cover-lg" style="background:${b.grad}">${b.icon}</div><div class="book-meta"><span class="book-meta-title">${b.title}</span><span class="book-meta-author">— ${b.author}</span></div><div class="book-read-body">${b.summary}</div>`;
+    } else {
+        body.innerHTML=`<div class="book-cover-lg" style="background:${b.grad}">${b.icon}</div>
+        <div class="book-meta"><span class="book-meta-title">${b.title}</span><span class="book-meta-author">— ${b.author}</span></div>
+        <div class="audio-player">
+            <div class="audio-title">🎧 Аудиосаммари · ~12 минут</div>
+            <div class="audio-controls">
+                <button class="audio-play" id="aPlayBtn" onclick="toggleAudio()">▶</button>
+                <div class="audio-bar" onclick="seekAudio(event,this)"><div class="audio-progress" id="aProgress"></div></div>
+                <span class="audio-time" id="aTime">0:00 / 12:00</span>
+            </div>
+            <div class="audio-note">Демо-режим: в полной версии приложения доступна профессиональная озвучка.</div>
+        </div>
+        <div class="book-read-body">${b.summary}</div>`;
+    }
+    openM('book-m');
+}
+let aPlaying=false,aSec=0;
+function toggleAudio(){
+    aPlaying=!aPlaying;
+    document.getElementById('aPlayBtn').textContent=aPlaying?'⏸':'▶';
+    if(aPlaying){audioTimer=setInterval(()=>{aSec=Math.min(aSec+1,720);updateAudio();},1000);}
+    else{clearInterval(audioTimer);}
+}
+function updateAudio(){
+    const p=document.getElementById('aProgress');
+    const t=document.getElementById('aTime');
+    if(!p||!t)return;
+    p.style.width=(aSec/720*100)+'%';
+    t.textContent=`${Math.floor(aSec/60)}:${String(aSec%60).padStart(2,'0')} / 12:00`;
+    if(aSec>=720){clearInterval(audioTimer);aPlaying=false;document.getElementById('aPlayBtn').textContent='▶';}
+}
+function seekAudio(e,bar){
+    const r=bar.getBoundingClientRect();
+    aSec=Math.round(((e.clientX-r.left)/r.width)*720);
+    updateAudio();
 }
 
 // ── BOOK FILTER ──
