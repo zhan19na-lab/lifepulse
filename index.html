@@ -3,1590 +3,791 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LifePulse - Умный помощник для контроля здоровья</title>
+    <title>LifePulse — Твой баланс здоровья, тела и души</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a0033 100%);
-            color: #e0e0e0;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        header {
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 15, 35, 0.8);
-            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-
-        .logo-text h1 {
-            font-size: 1.5rem;
-            color: #ffffff;
-        }
-
-        .logo-text p {
-            font-size: 0.8rem;
-            color: #b0b0d0;
-        }
-
-        .btn-top {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.8rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(201, 77, 255, 0.3);
-        }
-
-        .btn-top:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(201, 77, 255, 0.5);
-        }
-
-        /* Hero Section */
-        .hero {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-content h2 {
-            font-size: 3rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
-
-        .hero-content h2 .highlight {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-content p {
-            color: #b0b0d0;
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(201, 77, 255, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #333;
-            border: 2px solid rgba(51, 51, 51, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(51, 51, 51, 0.05);
-            border-color: #666;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-        }
-
-        .stat {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-        }
-
-        /* Heart Container */
-        .heart-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-            background: linear-gradient(135deg, rgba(201, 77, 255, 0.08) 0%, rgba(255, 0, 110, 0.05) 100%);
-            border-radius: 25px;
-            border: 2px solid rgba(201, 77, 255, 0.15);
-            position: relative;
-        }
-
-        .heart {
-            width: 150px;
-            height: 150px;
-            position: relative;
-            animation: heartbeat 1.5s infinite;
-        }
-
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            width: 90px;
-            height: 140px;
-            background: #ff0000;
-            border-radius: 90px 90px 0 0;
-            border: 3px solid #000;
-        }
-
-        .heart::before {
-            left: 60px;
-            transform: rotate(-45deg);
-            transform-origin: 0 140px;
-        }
-
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
-            transform-origin: 90px 140px;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            50% { transform: scale(1); }
-        }
-
-        /* Metrics Section */
-        .metrics {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 3rem 2rem;
-            background: rgba(30, 30, 60, 0.5);
-            border-radius: 20px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-        }
-
-        .metrics-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: #ffffff;
-        }
-
-        .metrics-title span {
-            color: #c94dff;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .metric-input {
-            background: rgba(50, 50, 90, 0.5);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-        }
-
-        .metric-input label {
-            display: block;
-            color: #e0e0e0;
-            font-size: 0.95rem;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-        }
-
-        .metric-input input,
-        .metric-input select {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(20, 20, 40, 0.8);
-            border: 1px solid rgba(201, 77, 255, 0.3);
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        .metric-input input::placeholder,
-        .metric-input select::placeholder {
-            color: #606080;
-        }
-
-        .metric-input input:focus,
-        .metric-input select:focus {
-            outline: none;
-            border-color: #ff006e;
-            box-shadow: 0 0 15px rgba(201, 77, 255, 0.3);
-        }
-
-        .metrics-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            color: white;
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            flex: 1;
-            max-width: 600px;
-            transition: all 0.3s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.3);
-        }
-
-        .btn-clear {
-            background: white;
-            color: #333;
-            border: 1px solid #ddd;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        /* Features Section (9 cards) */
-        .features {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            text-align: left;
-            color: #ffffff;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: rgba(30, 30, 60, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 77, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.7rem;
-            color: #c94dff;
-        }
-
-        .feature-card p {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* Reviews Section */
-        .reviews {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-            margin-bottom: 4rem;
-        }
-
-        .review-card {
-            background: rgba(30, 30, 60, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 77, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
-        }
-
-        .review-stars {
-            font-size: 1.1rem;
-            letter-spacing: 0.2rem;
-        }
-
-        .review-text {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            flex: 1;
-        }
-
-        .review-author {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-
-        .review-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            flex-shrink: 0;
-        }
-
-        .review-info h4 {
-            color: #ffffff;
-            font-size: 0.95rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .review-info p {
-            color: #b0b0d0;
-            font-size: 0.85rem;
-            margin: 0;
-        }
-
-        .review-metric {
-            color: #c94dff;
-            font-weight: 600;
-            margin-top: 0.5rem !important;
-        }
-
-        .reviews-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-            padding: 2rem;
-            background: rgba(30, 30, 60, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            text-align: center;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .stat-big {
-            font-size: 2rem;
-            color: #c94dff;
-            font-weight: bold;
-        }
-
-        .stat-small {
-            color: #b0b0d0;
-            font-size: 0.9rem;
-        }
-
-        /* FAQ Section */
-        .faq {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .faq-card {
-            background: rgba(30, 30, 60, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            border-left: 4px solid #c94dff;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            border-left: 4px solid #c94dff;
-            transition: all 0.3s;
-        }
-
-        .faq-card:hover {
-            border-color: rgba(201, 77, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
-            transform: translateY(-3px);
-        }
-
-        .faq-card.featured {
-            border-left: 4px solid #ff006e;
-            border: 2px solid #ff006e;
-        }
-
-        .faq-card h4 {
-            color: #ffffff;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .faq-card p {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        .faq-link {
-            color: #c94dff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .faq-link:hover {
-            color: #ff006e;
-        }
-
-        /* Doctor Report Section */
-        .report-section {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 3rem 2rem;
-            background: rgba(30, 30, 60, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(201, 77, 255, 0.15);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .report-left {
-            background: rgba(50, 50, 90, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            text-align: center;
-        }
-
-        .report-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .report-left h3 {
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-        .report-left p {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-        }
-
-        .report-right h3 {
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .report-list {
-            list-style: none;
-        }
-
-        .report-list li {
-            color: #b0b0d0;
-            padding: 0.8rem 0;
-            padding-left: 1.8rem;
-            position: relative;
-        }
-
-        .report-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #c94dff;
-            font-weight: bold;
-        }
-
-        .btn-download {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            color: white;
-            border: none;
-            padding: 0.9rem 2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 2rem;
-            transition: all 0.3s;
-        }
-
-        /* Family Section */
-        .family-section {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 3rem 2rem;
-            background: rgba(30, 30, 60, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(201, 77, 255, 0.15);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .family-left h3 {
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .family-list {
-            list-style: none;
-        }
-
-        .family-list li {
-            color: #b0b0d0;
-            padding: 0.8rem 0;
-            padding-left: 1.8rem;
-            position: relative;
-        }
-
-        .family-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #c94dff;
-            font-weight: bold;
-        }
-
-        .family-right {
-            text-align: center;
-            background: rgba(50, 50, 90, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-        }
-
-        .family-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .family-right h4 {
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-        }
-
-        .family-right p {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-        }
-
-        /* Specialists Section */
-        .specialists {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .specialists-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .specialist-card {
-            background: rgba(30, 30, 60, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            transition: all 0.3s;
-        }
-
-        .specialist-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 77, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
-        }
-
-        .specialist-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-
-        .specialist-card h4 {
-            color: #ffffff;
-            margin-bottom: 0.3rem;
-        }
-
-        .specialist-card .role {
-            color: #c94dff;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .specialist-card p {
-            color: #b0b0d0;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-bottom: 1rem;
-        }
-
-        .specialist-link {
-            color: #c94dff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* How it works */
-        .how-it-works {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 0 2rem;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .step-card {
-            background: rgba(30, 30, 60, 0.5);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            position: relative;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 1rem;
-        }
-
-        .step-card h4 {
-            color: #ffffff;
-            margin-bottom: 1rem;
-        }
-
-        .step-card p {
-            color: #b0b0d0;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Floating Consultant UI */
-        .floating-consultant {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 1000;
-            filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
-        }
-
-        .consultant-bubble {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 14px;
-            width: 180px;
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.3);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .consultant-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 0.75rem 0;
-            border-bottom: none;
-        }
-
-        .consultant-avatar {
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            color: white;
-        }
-
-        .consultant-bubble {
-            animation: bubblePulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes bubblePulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 20px 60px rgba(201, 77, 255, 0.3);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 25px 70px rgba(201, 77, 255, 0.45);
-            }
-        }
-
-        .consultant-top {
-            padding: 0.75rem;
-            text-align: center;
-            flex: 0 0 auto;
-        }
-
-        .consultant-bottom {
-            background: rgba(20, 20, 40, 0.95);
-            padding: 0.75rem;
-            flex: 1 1 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            border-radius: 0 0 14px 14px;
-        }
-
-        .consultant-info h3 {
-            color: #ffffff;
-            margin-bottom: 0.2rem;
-            font-size: 0.65rem;
-        }
-
-        .consultant-info p {
-            color: #ffffff;
-            font-size: 0.6rem;
-            font-weight: 600;
-        }
-
-        .close-consultant {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: none;
-            border: none;
-            font-size: 1rem;
-            cursor: pointer;
-            color: #ccc;
-            transition: 0.3s;
-        }
-
-        .close-consultant:hover {
-            color: #c94dff;
-        }
-
-        .consultant-message {
-            color: #e0e0e0;
-            font-size: 0.65rem;
-            line-height: 1.4;
-            padding: 0.5rem;
-            background: rgba(50, 50, 90, 0.6);
-            border-radius: 8px;
-            border: 1px solid rgba(201, 77, 255, 0.3);
-        }
-
-        .consultant-input-area {
-            display: flex;
-            gap: 0.3rem;
-            align-items: center;
-        }
-
-        .consultant-input-area input {
-            flex: 1;
-            padding: 0.4rem 0.6rem;
-            background: rgba(100, 60, 180, 0.4);
-            border: 1px solid rgba(201, 77, 255, 0.5);
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 0.65rem;
-            transition: 0.3s;
-        }
-
-        .consultant-input-area input::placeholder {
-            color: #a080c0;
-        }
-
-        .consultant-input-area input:focus {
-            outline: none;
-            background: rgba(100, 60, 180, 0.6);
-            border-color: #ff006e;
-        }
-
-        .consultant-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .consultant-btn {
-            flex: 1;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-
-        .consultant-btn-primary {
-            background: linear-gradient(135deg, #c94dff 0%, #ff006e 100%);
-            color: white;
-        }
-
-        .consultant-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(201, 77, 255, 0.3);
-        }
-
-        .consultant-btn-secondary {
-            background: rgba(201, 77, 255, 0.1);
-            color: #c94dff;
-            border: 1px solid rgba(201, 77, 255, 0.3);
-        }
-
-        .consultant-btn-secondary:hover {
-            background: rgba(201, 77, 255, 0.2);
-        }
-
-        /* Social Section */
-        .social-section {
-            max-width: 1400px;
-            margin: 5rem auto;
-            padding: 3rem 2rem;
-            background: rgba(30, 30, 60, 0.3);
-            border-radius: 20px;
-            border: 1px solid rgba(201, 77, 255, 0.15);
-        }
-
-        .social-container {
-            text-align: center;
-        }
-
-        .social-description {
-            color: #b0b0d0;
-            font-size: 1.05rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .social-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            padding: 2rem;
-            background: rgba(50, 50, 90, 0.5);
-            border-radius: 15px;
-            border: 1px solid rgba(201, 77, 255, 0.2);
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 77, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(201, 77, 255, 0.15);
-        }
-
-        .social-icon {
-            font-size: 3rem;
-        }
-
-        .social-name {
-            color: #ffffff;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .social-desc {
-            color: #b0b0d0;
-            font-size: 0.85rem;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 6rem;
-            padding: 3rem 2rem;
-            background: rgba(15, 15, 35, 0.8);
-            border-top: 1px solid rgba(138, 43, 226, 0.2);
-            text-align: center;
-            color: #808090;
-        }
-
-        footer a {
-            transition: 0.3s;
-        }
-
-        footer a:hover {
-            color: #ff006e;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero { grid-template-columns: 1fr; }
-            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-            .features-grid { grid-template-columns: repeat(2, 1fr); }
-            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-            .reviews-stats { grid-template-columns: repeat(2, 1fr); }
-            .faq-grid { grid-template-columns: repeat(2, 1fr); }
-            .specialists-grid { grid-template-columns: repeat(2, 1fr); }
-            .steps-grid { grid-template-columns: repeat(2, 1fr); }
-            .report-section { grid-template-columns: 1fr; }
-            .family-section { grid-template-columns: 1fr; }
-            .social-links { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .hero { margin: 2rem auto; }
-            .metrics-grid { grid-template-columns: 1fr; }
-            .features-grid { grid-template-columns: 1fr; }
-            .faq-grid { grid-template-columns: 1fr; }
-            .specialists-grid { grid-template-columns: 1fr; }
-            .steps-grid { grid-template-columns: 1fr; }
-
-            .floating-consultant {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .consultant-bubble {
-                width: 150px;
-                padding: 0.75rem;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        :root{
+            --bg:#060d1a;--surface:#0a1628;--card:#111e35;
+            --teal:#14b8a6;--teal-light:#5eead4;
+            --indigo:#6366f1;--purple:#8b5cf6;--pink:#ec4899;
+            --cream:#fffbeb;--white:#f8fafc;--muted:#94a3b8;
+            --glass:rgba(255,255,255,0.055);--gb:rgba(255,255,255,0.10);
+            --r:24px;
+        }
+        html{scroll-behavior:smooth;}
+        body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;}
+
+        /* ── NAV ── */
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 28px;transition:all .3s ease;}
+        nav.scrolled{background:rgba(6,13,26,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}
+        .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+        .nav-logo{font-size:1.15rem;font-weight:700;color:var(--white);display:flex;align-items:center;gap:8px;}
+        .nav-links{display:flex;gap:28px;list-style:none;}
+        @media(max-width:768px){.nav-links{display:none;}}
+        .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:color .2s;}
+        .nav-links a:hover{color:var(--white);}
+        .nav-cta{background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.28);color:var(--teal-light);padding:8px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+        .nav-cta:hover{background:rgba(20,184,166,.26);}
+
+        /* ── HERO ── */
+        .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+        .hero-bg{position:absolute;inset:0;background:var(--bg);}
+        .hero-bg::before{content:'';position:absolute;width:200%;height:200%;top:-50%;left:-50%;
+            background:
+                radial-gradient(ellipse at 25% 45%,rgba(20,184,166,.38) 0%,transparent 50%),
+                radial-gradient(ellipse at 75% 55%,rgba(99,102,241,.32) 0%,transparent 50%),
+                radial-gradient(ellipse at 50% 20%,rgba(16,185,129,.2) 0%,transparent 42%),
+                radial-gradient(ellipse at 80% 30%,rgba(139,92,246,.24) 0%,transparent 44%);
+            animation:auroraA 14s ease-in-out infinite alternate;}
+        .hero-bg::after{content:'';position:absolute;inset:0;
+            background:
+                radial-gradient(ellipse at 15% 75%,rgba(14,165,233,.18) 0%,transparent 55%),
+                radial-gradient(ellipse at 65% 80%,rgba(99,102,241,.14) 0%,transparent 42%);
+            animation:auroraB 18s ease-in-out infinite alternate;}
+        @keyframes auroraA{0%{transform:translate(0,0) rotate(0deg) scale(1);}50%{transform:translate(-3%,2%) rotate(.8deg) scale(1.02);}100%{transform:translate(2%,-2%) rotate(-.6deg) scale(.99);}}
+        @keyframes auroraB{0%{filter:hue-rotate(0deg);transform:scale(1);}100%{filter:hue-rotate(25deg);transform:scale(1.04) translate(2%,-1%);}}
+        .particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+        .particle{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);animation:pFloat linear infinite;}
+        @keyframes pFloat{0%{transform:translateY(110vh) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:.4;}100%{transform:translateY(-120px) scale(1);opacity:0;}}
+        .grain{position:absolute;inset:0;pointer-events:none;opacity:.35;
+            background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");}
+        .hero-content{position:relative;z-index:2;text-align:center;padding:0 20px;max-width:820px;}
+        .hero-badge{display:inline-block;background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.3);color:var(--teal-light);padding:8px 22px;border-radius:100px;font-size:12px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:32px;backdrop-filter:blur(10px);}
+        .hero-title{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:300;color:var(--cream);line-height:1.18;letter-spacing:-.02em;margin-bottom:22px;text-shadow:0 2px 50px rgba(20,184,166,.28);}
+        .hero-title strong{font-weight:700;background:linear-gradient(135deg,#5eead4,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+        .hero-sub{font-size:clamp(.95rem,2.2vw,1.15rem);color:rgba(248,250,252,.62);line-height:1.75;margin-bottom:46px;font-weight:300;}
+        .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+        .btn-p{background:linear-gradient(135deg,#14b8a6,#6366f1);color:#fff;border:none;padding:15px 34px;border-radius:100px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s cubic-bezier(.23,1,.32,1);box-shadow:0 4px 30px rgba(20,184,166,.35);letter-spacing:.3px;}
+        .btn-p:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 40px rgba(20,184,166,.5);}
+        .btn-p:active{transform:translateY(0) scale(.98);}
+        .btn-s{background:var(--glass);color:var(--white);border:1px solid var(--gb);padding:15px 34px;border-radius:100px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s ease;backdrop-filter:blur(10px);}
+        .btn-s:hover{background:rgba(255,255,255,.1);transform:translateY(-2px);}
+        .hero-trust{margin-top:54px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;}
+        .trust-i{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);}
+        .trust-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+        .scroll-ind{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);z-index:2;animation:sbounce 2.2s ease-in-out infinite;}
+        .scroll-ind span{display:block;width:2px;height:38px;background:linear-gradient(to bottom,transparent,rgba(20,184,166,.55));margin:0 auto;border-radius:1px;}
+        @keyframes sbounce{0%,100%{transform:translateX(-50%) translateY(0);opacity:1;}50%{transform:translateX(-50%) translateY(8px);opacity:.45;}}
+
+        /* ── SHARED ── */
+        section{padding:96px 20px;}
+        .container{max-width:1200px;margin:0 auto;}
+        .s-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:block;}
+        .s-title{font-size:clamp(1.75rem,4vw,2.9rem);font-weight:300;line-height:1.25;color:var(--cream);margin-bottom:18px;}
+        .s-title strong{font-weight:700;}
+        .s-sub{font-size:1rem;color:var(--muted);line-height:1.75;max-width:540px;}
+        .fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+        .fade-up.visible{opacity:1;transform:translateY(0);}
+
+        /* ── PERSONALIZATION ── */
+        .plan-sec{background:linear-gradient(135deg,rgba(20,184,166,.07),rgba(99,102,241,.07));border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);}
+        .plan-center{text-align:center;}
+        .plan-icon{font-size:2.8rem;margin-bottom:20px;display:block;}
+        .plan-desc{font-size:1.05rem;color:var(--muted);max-width:640px;margin:0 auto 38px;line-height:1.82;}
+        .plan-tags{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:44px;}
+        .p-tag{background:var(--glass);border:1px solid var(--gb);padding:9px 18px;border-radius:100px;font-size:12px;color:var(--teal-light);backdrop-filter:blur(10px);}
+
+        /* ── CARDS ── */
+        .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;margin-top:56px;}
+        .b-card{position:relative;background:var(--glass);border:1px solid var(--gb);border-radius:var(--r);padding:46px 34px;cursor:pointer;overflow:hidden;transition:all .4s cubic-bezier(.23,1,.32,1);backdrop-filter:blur(18px);}
+        .b-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--ca,rgba(20,184,166,.1)),transparent);opacity:0;transition:opacity .4s;}
+        .b-card:hover{transform:translateY(-8px);border-color:var(--cb,rgba(20,184,166,.4));box-shadow:0 20px 60px rgba(0,0,0,.3);}
+        .b-card:hover::before{opacity:1;}
+        .b-card:hover .c-reveal{opacity:1;transform:translateY(0);}
+        .b-card:hover .c-icon{transform:scale(1.1);}
+        .c-icon{font-size:2.4rem;margin-bottom:18px;display:block;transition:transform .3s;}
+        .c-title{font-size:1.25rem;font-weight:600;color:var(--white);margin-bottom:10px;}
+        .c-hint{font-size:.82rem;color:var(--muted);}
+        .c-reveal{position:absolute;inset:0;background:rgba(8,18,36,.93);backdrop-filter:blur(10px);border-radius:inherit;padding:34px;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(10px);transition:all .35s cubic-bezier(.23,1,.32,1);}
+        .c-reveal h4{font-size:1.05rem;font-weight:600;color:var(--teal-light);margin-bottom:10px;}
+        .c-reveal p{font-size:.88rem;color:rgba(248,250,252,.8);line-height:1.72;margin-bottom:18px;}
+        .c-rbtn{display:inline-block;background:linear-gradient(135deg,#14b8a6,#6366f1);color:#fff;border:none;padding:9px 22px;border-radius:100px;font-size:12px;font-weight:600;cursor:pointer;width:fit-content;}
+        .c-rbtn:hover{opacity:.86;}
+
+        /* ── FRIDGE ── */
+        .fridge-sec{background:linear-gradient(180deg,transparent,rgba(20,184,166,.04),transparent);}
+        .fridge-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:56px;}
+        @media(max-width:768px){.fridge-grid{grid-template-columns:1fr;gap:36px;}}
+        .f-panel{background:var(--glass);border:1px solid var(--gb);border-radius:var(--r);padding:36px;backdrop-filter:blur(18px);}
+        .f-panel h3{font-size:1rem;font-weight:600;color:var(--teal-light);margin-bottom:18px;}
+        .ing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:22px;}
+        .ing-chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;cursor:pointer;transition:all .2s;font-size:12px;color:var(--muted);}
+        .ing-chip input{accent-color:var(--teal);width:13px;height:13px;pointer-events:none;}
+        .ing-chip:hover{border-color:rgba(20,184,166,.3);color:var(--white);}
+        .ing-chip.on{border-color:rgba(20,184,166,.5);background:rgba(20,184,166,.1);color:var(--teal-light);}
+        .recipe-box{background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.2);border-radius:16px;padding:22px;display:none;}
+        .recipe-box.show{display:block;}
+        .r-name{font-size:1.05rem;font-weight:600;color:var(--cream);margin-bottom:8px;}
+        .r-macros{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0;}
+        .r-badge{background:rgba(255,255,255,.06);padding:3px 11px;border-radius:100px;font-size:11px;color:var(--teal-light);}
+        .r-insight{font-size:12px;color:var(--muted);line-height:1.6;font-style:italic;margin-top:8px;}
+        .recipe-prompt{padding:36px;text-align:center;color:var(--muted);font-size:13px;}
+
+        /* ── ENDORSEMENTS ── */
+        .end-sec{background:rgba(255,255,255,.02);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);}
+        .end-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;margin-top:56px;}
+        .e-card{background:var(--glass);border:1px solid var(--gb);border-radius:var(--r);padding:34px;backdrop-filter:blur(18px);transition:transform .3s;}
+        .e-card:hover{transform:translateY(-4px);}
+        .e-quote{font-size:1.6rem;color:var(--teal);margin-bottom:14px;font-family:Georgia,serif;}
+        .e-text{font-size:.88rem;color:rgba(248,250,252,.74);line-height:1.72;margin-bottom:18px;font-style:italic;}
+        .e-author{display:flex;align-items:center;gap:12px;}
+        .e-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--indigo));display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;}
+        .e-name{font-size:13px;font-weight:600;color:var(--white);}
+        .e-role{font-size:11px;color:var(--muted);}
+
+        /* ── MOCKUPS ── */
+        .mock-sec{text-align:center;}
+        .mock-wrap{display:flex;gap:28px;justify-content:center;align-items:flex-end;margin-top:56px;flex-wrap:wrap;}
+        .phone{width:215px;background:#0f172a;border-radius:30px;border:2px solid rgba(255,255,255,.1);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);transition:transform .3s;}
+        .phone:hover{transform:translateY(-10px);}
+        .phone.center{transform:scale(1.1);}
+        .phone.center:hover{transform:scale(1.1) translateY(-10px);}
+        .p-screen{padding:18px 14px;}
+        .p-hdr{font-size:10px;color:var(--muted);margin-bottom:14px;text-align:left;}
+        .p-metric{background:rgba(255,255,255,.04);border-radius:10px;padding:10px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
+        .p-mlabel{font-size:9px;color:var(--muted);}
+        .p-mval{font-size:15px;font-weight:700;color:var(--teal-light);}
+        .p-chart{height:56px;background:rgba(20,184,166,.05);border-radius:8px;margin-top:10px;overflow:hidden;position:relative;}
+        .p-chart::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--indigo));}
+
+        /* ── DIALOG SECTION ── */
+        .dialog-sec{background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.08),transparent 72%);}
+        .dialog-preview{max-width:590px;margin:56px auto 0;background:linear-gradient(180deg,#0a0f1e,#060d1a);border:1px solid rgba(99,102,241,.22);border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5);cursor:pointer;}
+        .dp-hdr{background:rgba(99,102,241,.1);padding:18px 26px;border-bottom:1px solid rgba(99,102,241,.14);display:flex;align-items:center;gap:12px;}
+        .dp-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:15px;}
+        .dp-name{font-size:13px;font-weight:600;}
+        .dp-status{font-size:10px;color:var(--teal);}
+        .dp-msgs{padding:24px;display:flex;flex-direction:column;gap:14px;min-height:200px;}
+        .m-bubble{max-width:82%;padding:11px 15px;border-radius:16px;font-size:13px;line-height:1.58;}
+        .m-user{align-self:flex-end;background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.3);color:var(--white);border-bottom-right-radius:4px;}
+        .m-ai{align-self:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(248,250,252,.84);border-bottom-left-radius:4px;}
+        .dp-inp{padding:18px 26px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:10px;align-items:center;}
+        .dp-field{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:11px 18px;color:var(--white);font-size:12px;outline:none;}
+        .dp-field::placeholder{color:var(--muted);}
+        .dp-send{background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+        .dp-send:hover{transform:scale(1.1);}
+
+        /* ── LIBRARY SECTION ── */
+        .lib-sec{background:linear-gradient(180deg,transparent,rgba(99,102,241,.04),transparent);}
+        .b-tabs{display:flex;gap:8px;margin:36px 0 28px;flex-wrap:wrap;}
+        .b-tab{background:var(--glass);border:1px solid var(--gb);color:var(--muted);padding:9px 20px;border-radius:100px;font-size:12px;cursor:pointer;transition:all .2s;}
+        .b-tab.active,.b-tab:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4);color:var(--white);}
+        .b-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;}
+        .bk-card{background:var(--glass);border:1px solid var(--gb);border-radius:20px;overflow:hidden;cursor:pointer;transition:all .3s;backdrop-filter:blur(10px);}
+        .bk-card:hover{transform:translateY(-6px);border-color:rgba(99,102,241,.4);box-shadow:0 20px 40px rgba(0,0,0,.3);}
+        .bk-cover{height:130px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+        .bk-info{padding:14px;}
+        .bk-title{font-size:12px;font-weight:600;color:var(--white);margin-bottom:3px;line-height:1.3;}
+        .bk-author{font-size:10px;color:var(--muted);margin-bottom:10px;}
+        .bk-actions{display:flex;gap:6px;}
+        .bk-btn{flex:1;padding:6px 0;border-radius:7px;font-size:10px;font-weight:600;border:none;cursor:pointer;transition:opacity .2s;}
+        .bk-read{background:rgba(20,184,166,.14);color:var(--teal-light);border:1px solid rgba(20,184,166,.2)!important;}
+        .bk-listen{background:rgba(99,102,241,.14);color:#a5b4fc;border:1px solid rgba(99,102,241,.2)!important;}
+        .bk-btn:hover{opacity:.78;}
+
+        /* ── FOOTER ── */
+        footer{border-top:1px solid rgba(255,255,255,.06);padding:56px 20px 36px;}
+        .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;max-width:1200px;margin:0 auto 36px;}
+        @media(max-width:768px){.f-grid{grid-template-columns:1fr 1fr;}}
+        @media(max-width:480px){.f-grid{grid-template-columns:1fr;}}
+        .f-logo{font-size:1.2rem;font-weight:700;margin-bottom:10px;}
+        .f-brand p{font-size:12px;color:var(--muted);line-height:1.65;max-width:240px;}
+        .f-col h4{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin-bottom:14px;}
+        .f-col ul{list-style:none;}
+        .f-col ul li{margin-bottom:9px;}
+        .f-col ul li a{color:var(--muted);text-decoration:none;font-size:12px;transition:color .2s;}
+        .f-col ul li a:hover{color:var(--white);}
+        .f-bottom{max-width:1200px;margin:0 auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.05);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+        .f-legal{font-size:10px;color:rgba(148,163,184,.45);line-height:1.55;}
+
+        /* ── COOKIE ── */
+        .cookie{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(9,16,28,.94);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.09);border-radius:100px;padding:9px 18px 9px 22px;display:flex;align-items:center;gap:14px;z-index:999;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:all .4s;white-space:nowrap;max-width:92vw;}
+        @media(max-width:600px){.cookie{white-space:normal;border-radius:14px;flex-wrap:wrap;justify-content:center;}}
+        .cookie-txt{font-size:10px;color:rgba(148,163,184,.7);}
+        .cookie-txt a{color:rgba(94,234,212,.7);text-decoration:none;}
+        .cookie-ok{background:rgba(20,184,166,.14);border:1px solid rgba(20,184,166,.24);color:var(--teal-light);padding:5px 14px;border-radius:100px;font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;flex-shrink:0;}
+        .cookie-ok:hover{background:rgba(20,184,166,.26);}
+        .cookie.gone{opacity:0;transform:translateX(-50%) translateY(20px);pointer-events:none;}
+
+        /* ── HEART WIDGET ── */
+        .hw{position:fixed;bottom:28px;right:28px;z-index:1000;}
+        .hw-btn{background:none;border:none;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;}
+        .hw-pulse{position:absolute;width:58px;height:58px;border-radius:50%;background:rgba(236,72,153,.28);animation:hpulse 2.2s ease-out infinite;}
+        .hw-pulse:nth-child(2){animation-delay:.6s;}
+        .hw-pulse:nth-child(3){animation-delay:1.2s;}
+        @keyframes hpulse{0%{transform:scale(.85);opacity:.8;}100%{transform:scale(2.6);opacity:0;}}
+        .hw-icon{position:relative;z-index:1;width:58px;height:58px;background:linear-gradient(135deg,#ec4899,#f43f5e);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 30px rgba(236,72,153,.5);animation:heartbeat 1.5s ease-in-out infinite;}
+        .hw-btn:hover .hw-icon{transform:scale(1.08);}
+        @keyframes heartbeat{0%,100%{transform:scale(1);}14%{transform:scale(1.12);}28%{transform:scale(1);}42%{transform:scale(1.08);}70%{transform:scale(1);}}
+
+        /* ── MODAL ── */
+        .overlay{position:fixed;inset:0;background:rgba(6,13,26,.92);backdrop-filter:blur(10px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+        .overlay.open{opacity:1;pointer-events:all;}
+        .m-box{background:#0a0f1e;border:1px solid rgba(255,255,255,.1);border-radius:28px;width:100%;max-width:600px;max-height:88vh;overflow-y:auto;transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.23,1,.32,1);box-shadow:0 40px 80px rgba(0,0,0,.6);}
+        .overlay.open .m-box{transform:translateY(0) scale(1);}
+        .m-hdr{padding:26px 30px 18px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;}
+        .m-title{font-size:1.05rem;font-weight:600;color:var(--white);}
+        .m-close{background:rgba(255,255,255,.06);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;color:var(--muted);font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+        .m-close:hover{background:rgba(255,255,255,.12);color:var(--white);}
+        .m-body{padding:22px 30px 30px;}
+
+        /* dialog modal */
+        .chat-msgs{min-height:280px;max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:14px 0;margin-bottom:18px;}
+        .chat-row{display:flex;gap:10px;}
+        .chat-inp{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:12px 18px;color:var(--white);font-size:13px;outline:none;transition:border-color .2s;}
+        .chat-inp:focus{border-color:rgba(99,102,241,.5);}
+        .chat-inp::placeholder{color:var(--muted);}
+        .chat-send{background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:17px;transition:all .2s;flex-shrink:0;}
+        .chat-send:hover{transform:scale(1.1);}
+        .typing-ind{display:flex;gap:4px;align-items:center;padding:8px 14px;}
+        .t-dot{width:5px;height:5px;border-radius:50%;background:var(--muted);animation:tbounce 1.2s ease-in-out infinite;}
+        .t-dot:nth-child(2){animation-delay:.2s;}
+        .t-dot:nth-child(3){animation-delay:.4s;}
+        @keyframes tbounce{0%,100%{transform:translateY(0);opacity:.4;}50%{transform:translateY(-4px);opacity:1;}}
+
+        /* library modal */
+        .lib-tabs{display:flex;gap:7px;margin-bottom:20px;flex-wrap:wrap;}
+        .lib-tab{background:var(--glass);border:1px solid var(--gb);color:var(--muted);padding:7px 16px;border-radius:100px;font-size:11px;cursor:pointer;transition:all .2s;}
+        .lib-tab.active{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4);color:var(--white);}
+        .lib-list{display:flex;flex-direction:column;gap:10px;}
+        .lb-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;}
+        .lb-item:hover{border-color:rgba(99,102,241,.3);background:rgba(99,102,241,.05);}
+        .lb-em{font-size:1.9rem;flex-shrink:0;}
+        .lb-info{flex:1;}
+        .lb-t{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px;}
+        .lb-a{font-size:11px;color:var(--muted);margin-bottom:3px;}
+        .lb-d{font-size:10px;color:rgba(148,163,184,.58);line-height:1.4;}
+        .lb-btns{display:flex;flex-direction:column;gap:5px;}
+        .lb-btn{padding:5px 12px;border-radius:7px;font-size:10px;font-weight:600;border:none;cursor:pointer;white-space:nowrap;}
+        .lb-read{background:rgba(20,184,166,.14);color:var(--teal-light);border:1px solid rgba(20,184,166,.2)!important;}
+        .lb-listen{background:rgba(99,102,241,.14);color:#a5b4fc;border:1px solid rgba(99,102,241,.2)!important;}
+
+        /* plan modal */
+        .p-step{margin-bottom:24px;}
+        .p-step-t{font-size:13px;font-weight:600;color:var(--teal-light);margin-bottom:10px;}
+        .p-opts{display:flex;gap:8px;flex-wrap:wrap;}
+        .p-opt{background:var(--glass);border:1px solid var(--gb);border-radius:10px;padding:9px 16px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s;}
+        .p-opt:hover,.p-opt.sel{border-color:rgba(20,184,166,.4);background:rgba(20,184,166,.1);color:var(--teal-light);}
+        .plan-res{display:none;margin-top:20px;padding:18px;background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.2);border-radius:14px;}
+        .plan-res-t{color:var(--teal-light);font-weight:600;margin-bottom:10px;font-size:14px;}
+        .plan-res p{font-size:12px;color:var(--muted);line-height:1.7;}
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <div class="logo-icon">💜</div>
-            <div class="logo-text">
-                <h1>LifePulse</h1>
-                <p>Контроль здоровья</p>
-            </div>
-        </div>
-        <button class="btn-top" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">Перейти в LifePulse Bot</button>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Контролируйте своё<br><span class="highlight">давление и здоровье<br>легко</span></h2>
-            <p>LifePulse — это ваш личный помощник для отслеживания давления, пульса, нагрузок и приёма лекарств. Получайте умные рекомендации от специалистов.</p>
+<!-- NAV -->
+<nav id="nav">
+    <div class="nav-inner">
+        <div class="nav-logo">💜 LifePulse</div>
+        <ul class="nav-links">
+            <li><a href="#benefits">Возможности</a></li>
+            <li><a href="#nutrition">Питание</a></li>
+            <li><a href="#dialog">Диалог</a></li>
+            <li><a href="#library">Библиотека</a></li>
+        </ul>
+        <button class="nav-cta" onclick="openM('plan-m')">Начать бесплатно</button>
+    </div>
+</nav>
 
-            <div class="hero-buttons">
-                <button class="btn-primary">Внести данные сейчас</button>
-                <button class="btn-secondary">Задать вопрос врачу</button>
-            </div>
-
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">10K+</span>
-                    <span class="stat-label">активных пользователей</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">поддержка</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="heart-container">
-            <div class="heart"></div>
-        </div>
-    </section>
-
-    <!-- Metrics Input Section -->
-    <section class="metrics">
-        <h2 class="metrics-title">📊 Введите <span>ваши показатели</span></h2>
-        <div class="metrics-grid">
-            <div class="metric-input">
-                <label>Систолическое давление (мм рт.ст.)</label>
-                <input type="number" placeholder="120" min="0" max="300">
-            </div>
-            <div class="metric-input">
-                <label>Диастолическое давление (мм рт.ст.)</label>
-                <input type="number" placeholder="80" min="0" max="200">
-            </div>
-            <div class="metric-input">
-                <label>Пульс (уд./мин)</label>
-                <input type="number" placeholder="72" min="0" max="250">
-            </div>
-        </div>
-
-        <div class="metrics-grid">
-            <div class="metric-input">
-                <label>Кто вы?</label>
-                <select>
-                    <option>Выберите категорию</option>
-                    <option>Спортсмен</option>
-                    <option>Пожилой человек</option>
-                    <option>Гипертоник</option>
-                </select>
-            </div>
-            <div class="metric-input">
-                <label>Принимаете ли лекарства?</label>
-                <select>
-                    <option>Не принимаю</option>
-                    <option>Да, принимаю</option>
-                </select>
-            </div>
-            <div class="metric-input">
-                <label>Напоминание о лекарстве</label>
-                <input type="time" value="09:00">
-            </div>
-        </div>
-
-        <div class="metrics-actions">
-            <button class="btn-submit">💾 Сохранить показатели</button>
-            <button class="btn-clear">Очистить</button>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <h2 class="section-title">🎯 Ключевые возможности</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📈</div>
-                <h3>История показателей</h3>
-                <p>Отслеживайте тренды давления и пульса с красивыми графиками. Видите улучшения!</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💊</div>
-                <h3>Напоминания о лекарствах</h3>
-                <p>Не забывайте о таблетках. Умные напоминания придут ровно в нужное время.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">👨‍⚕️</div>
-                <h3>Консультации врачей</h3>
-                <p>Задавайте вопросы специалистам и получайте ответы с сылками на источники.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🏃</div>
-                <h3>Индекс Руфье</h3>
-                <p>Узнайте готовность организма к нагрузкам. Важно для спортсменов!</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <h3>Telegram интеграция</h3>
-                <p>Всё удобно в одном чате. Нет необходимости переключаться между приложениями.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📷</div>
-                <h3>Фото тонометра</h3>
-                <p>Просто сфотографируй показания тонометра. ИИ автоматически распознает цифры и скрипт.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎤</div>
-                <h3>Голосовое внесение</h3>
-                <p>Скажи показания голосом. Приложение запишет и запомнит данные автоматически.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔐</div>
-                <h3>Безопасность данных</h3>
-                <p>Ваши данные защищены. Мы не передаём информацию третьим лицам.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">👨‍👩‍👧</div>
-                <h3>Семейный контроль</h3>
-                <p>Дети могут видеть здоровье родителей. Важно при критических значениях!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews">
-        <h2 class="section-title">⭐ Отзывы пользователей</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "LifePulse изменил мою жизнь! Теперь я вижу тренды давления. Показываю отчёты врачу, и он впечатлён!"
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">👩</div>
-                    <div class="review-info">
-                        <h4>Мария Сидорова</h4>
-                        <p>Гипертоник, 45 лет</p>
-                        <p class="review-metric">📊 Давление нормализовалось на 15%</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "Как спортсмен, я использую индекс Руфье для отслеживания готовности к тренировкам. Суперно работает!"
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">🏃</div>
-                    <div class="review-info">
-                        <h4>Иван Петров</h4>
-                        <p>Спортсмен, 28 лет</p>
-                        <p class="review-metric">💪 Увеличил результаты на 20%</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "Семейный контроль спасает! Мой сын видит мои показатели, и я спокойна. Всё безопасно и понятно."
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">👵</div>
-                    <div class="review-info">
-                        <h4>Елена Морозова</h4>
-                        <p>Пожилая пациентка, 67 лет</p>
-                        <p class="review-metric">👨‍👩‍👧 Дети спокойны</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "OCR распознавание фото тонометра — это чудо! Не нужно вводить вручную. Просто снял фото!"
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">👨</div>
-                    <div class="review-info">
-                        <h4>Александр Иванов</h4>
-                        <p>Офис-воркер, 35 лет</p>
-                        <p class="review-metric">⏱️ Сэкономил 10 часов в месяц</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "Голосовой ввод очень удобен! Спешу с работы, говорю показания, и всё записалось автоматически."
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">👩‍💼</div>
-                    <div class="review-info">
-                        <h4>Ольга Кузнецова</h4>
-                        <p>Бизнесвумен, 42 года</p>
-                        <p class="review-metric">🎤 Удобный интерфейс</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    "Напоминания о лекарствах спасают! Никогда не забываю пить таблетки в нужное время. Спасибо LifePulse!"
-                </div>
-                <div class="review-author">
-                    <div class="review-avatar">👴</div>
-                    <div class="review-info">
-                        <h4>Николай Соколов</h4>
-                        <p>Пенсионер, 72 года</p>
-                        <p class="review-metric">✅ Приём лекарств в норме</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="reviews-stats">
-            <div class="stat-item">
-                <div class="stat-big">10K+</div>
-                <div class="stat-small">активных пользователей</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-big">4.9★</div>
-                <div class="stat-small">средний рейтинг</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-big">98%</div>
-                <div class="stat-small">рекомендуют друзьям</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-        <h2 class="section-title">❓ Частые вопросы пользователей</h2>
-        <div class="faq-grid">
-            <div class="faq-card">
-                <h4>Какое нормальное давление?</h4>
-                <p>Нормальное давление — это 120 на 80. Но норма индивидуальна и зависит от возраста.</p>
-                <a href="#" class="faq-link">Спросить врача →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Как подготовиться спортсмену к тренировке?</h4>
-                <p>Предварьте свою подготовку: Руби в оптимальному пульсу. Если показатели в норме, можно тренироваться.</p>
-                <a href="#" class="faq-link">Спросить тренера →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Почему скачет давление?</h4>
-                <p>Причин много: стресс, упадок сил, неправильное питание, недосыпание и т.д. Смотрите анализ.</p>
-                <a href="#" class="faq-link">Запросить консультацию →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Можно ли мне заниматься спортом?</h4>
-                <p>Заход от ваших показателей LifePulse дает рекомендации на основе вашего данных и пульса.</p>
-                <a href="#" class="faq-link">Проверить рекомендацию →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Как часто измерять давление?</h4>
-                <p>Здоровому — 1 раз в год. Гипертонику — ежедневно утром и вечером. Смотрите график...</p>
-                <a href="#" class="faq-link">Спросить врача →</a>
-            </div>
-            <div class="faq-card featured">
-                <h4>Видит ли мои данные другие?</h4>
-                <p>Нет. Доступ имеют только вы и те, кому вы дали разрешение. Все данные защищены и зашифрованы.</p>
-                <a href="#" class="faq-link">Управлять доступом →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Как подключить родственников?</h4>
-                <p>Передавайте доступ детям или опекунам. Они увидят ваши показатели при критических значениях.</p>
-                <a href="#" class="faq-link">Подделитесь доступом →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Можно ли фотографировать тонометр?</h4>
-                <p>Да! Просто сфотографируй показания на экране тонометра. ИИ распознает и запишет цифры и скрипт.</p>
-                <a href="#" class="faq-link">Попробовать →</a>
-            </div>
-            <div class="faq-card">
-                <h4>Можно ли говорить показания голосом?</h4>
-                <p>Да! Просто скажи "Давление 140 на 90". Приложение поймет и запомнит автоматически.</p>
-                <a href="#" class="faq-link">Попробовать →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Doctor Report Section -->
-    <section class="report-section">
-        <div class="report-left">
-            <div class="report-icon">📊</div>
-            <h3>Красивые графики</h3>
-            <p>Видно тренды давления, давления и пульса за две недели</p>
-        </div>
-        <div class="report-right">
-            <h3>Что входит в отчёт?</h3>
-            <ul class="report-list">
-                <li>История показаний — все измерения за две недели</li>
-                <li>Графики — видна динамика давления и пульса</li>
-                <li>Лекарства — какие таблетки принимала, когда</li>
-                <li>Фото тонометра — оригинальные снимки показаний</li>
-                <li>Примечания — чего ты замечала каждый день</li>
-            </ul>
-            <button class="btn-download">🖨️ В Создать отчет для врача</button>
-        </div>
-    </section>
-
-    <!-- Family Control Section -->
-    <section class="family-section">
-        <div class="family-left">
-            <h3>👨‍👩‍👧 Семейный контроль</h3>
-            <p>Следите за здоровьем близких. Будьте спокойны, когда они здоровы!</p>
-            <h4 style="color: #e0e0e0; margin-top: 1.5rem; margin-bottom: 1rem;">Как это работает?</h4>
-            <ul class="family-list">
-                <li>Вы видите свои показатели давления!</li>
-                <li>Вы получаете код доступа</li>
-                <li>Можете передать код близкому человеку или опекуну</li>
-                <li>Рассчитаные истории и тренды</li>
-                <li>При критических значениях — срочные оповещения</li>
-            </ul>
-            <button class="btn-download">👨‍👩‍👧 Пригласить доступум</button>
-        </div>
-        <div class="family-right">
-            <div class="family-icon">👨‍👩‍👧‍👦</div>
-            <h4>Спокойствие за близких</h4>
-            <p>Зная, что со всеми хорошо с вашими родителями, бабушкой и дедушкой!</p>
-        </div>
-    </section>
-
-    <!-- Specialists Section -->
-    <section class="specialists">
-        <h2 class="section-title">👥 Наши специалисты</h2>
-        <div class="specialists-grid">
-            <div class="specialist-card">
-                <div class="specialist-avatar">👨‍⚕️</div>
-                <h4>Иван Петров</h4>
-                <p class="role">Кардиолог</p>
-                <p>10+ лет в кардиологии. Специалист по гипертонии и профилактике.</p>
-                <a href="#" class="specialist-link">Консультация →</a>
-            </div>
-            <div class="specialist-card">
-                <div class="specialist-avatar">👩‍⚕️</div>
-                <h4>Мария Сидорова</h4>
-                <p class="role">Врач-спортивный</p>
-                <p>Разбирается в спортивной медицине и оптимальному пульсу в тренировке. Автор статей в Рубе.</p>
-                <a href="#" class="specialist-link">Консультация →</a>
-            </div>
-            <div class="specialist-card">
-                <div class="specialist-avatar">👨‍⚕️</div>
-                <h4>Сергей Смирнов</h4>
-                <p class="role">Специалист по здоровью</p>
-                <p>Специалист по здоровью пожилых. Помогает пациентам с хроническими заболеваниями.</p>
-                <a href="#" class="specialist-link">Консультация →</a>
-            </div>
-            <div class="specialist-card">
-                <div class="specialist-avatar">👩‍⚕️</div>
-                <h4>Елена Морозова</h4>
-                <p class="role">Психолог</p>
-                <p>Сертифицированный психолог. Помогает спортсменам подобрать здоровый подход.</p>
-                <a href="#" class="specialist-link">Консультация →</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- How it Works -->
-    <section class="how-it-works">
-        <h2 class="section-title">🚀 Как это работает</h2>
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-number">1</div>
-                <h4>Введите данные</h4>
-                <p>Введите показатели давления голосом, фото или текстом в приложение.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">2</div>
-                <h4>Получите рекомендацию</h4>
-                <p>LifePulse проанализирует и даст совет: стоит ли в нагрузку или отдохнуть.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">3</div>
-                <h4>Покажите врачу</h4>
-                <p>Сделайте отчет за две недели и покажите врачу. Красивые графики помогут диагностике.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">4</div>
-                <h4>Делитесь с семьей</h4>
-                <p>Передайте доступ детям и родственникам. Они будут спокойны за вас!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2>🎉 Начните прямо сейчас</h2>
-        <p>Присоединитесь к тысячам пользователей, которые уже контролируют свое здоровье</p>
-        <button class="btn-top" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">💬 Открыть LifePulse в Telegram</button>
-    </section>
-
-    <!-- Social Links Section -->
-    <section class="social-section">
-        <div class="social-container">
-            <h2 class="section-title">📱 Следите за нами в соцсетях</h2>
-            <p class="social-description">Полезные советы, истории пользователей и обновления проекта</p>
-
-            <div class="social-links">
-                <a href="https://instagram.com/lifepulse_health" target="_blank" class="social-link instagram">
-                    <span class="social-icon">📸</span>
-                    <span class="social-name">Instagram</span>
-                    <span class="social-desc">Советы по здоровью</span>
-                </a>
-                <a href="https://youtube.com/@lifepulse_channel" target="_blank" class="social-link youtube">
-                    <span class="social-icon">📹</span>
-                    <span class="social-name">YouTube</span>
-                    <span class="social-desc">Обучающие видео</span>
-                </a>
-                <a href="https://tiktok.com/@lifepulse_health" target="_blank" class="social-link tiktok">
-                    <span class="social-icon">🎵</span>
-                    <span class="social-name">TikTok</span>
-                    <span class="social-desc">Короткие советы</span>
-                </a>
-                <a href="https://t.me/lifepulse_assistant_bot" target="_blank" class="social-link telegram">
-                    <span class="social-icon">💬</span>
-                    <span class="social-name">Telegram Bot</span>
-                    <span class="social-desc">Помощник 24/7</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>LifePulse © 2026 | Проект Жанны для контроля здоровья</p>
-        <p style="margin-top: 0.5rem;">Создано с любовью 💜</p>
-        <p style="margin-top: 1rem; font-size: 0.85rem; color: #606080;">
-            Найдите нас: <a href="https://instagram.com/lifepulse_health" style="color: #c94dff; text-decoration: none;">Instagram</a> |
-            <a href="https://youtube.com/@lifepulse_channel" style="color: #c94dff; text-decoration: none;">YouTube</a> |
-            <a href="https://tiktok.com/@lifepulse_health" style="color: #c94dff; text-decoration: none;">TikTok</a>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="pts"></div>
+    <div class="grain"></div>
+    <div class="hero-content">
+        <span class="hero-badge">✦ Ваш персональный помощник</span>
+        <h1 class="hero-title">Твой баланс<br><strong>здоровья, тела и души</strong></h1>
+        <p class="hero-sub">
+            LifePulse помогает понять, как питание, образ жизни и эмоции<br>
+            влияют на ваш организм — чтобы вы могли внести изменения,<br>
+            которые улучшат энергию, настроение и здоровье надолго.
         </p>
-    </footer>
+        <div class="hero-btns">
+            <button class="btn-p" onclick="openM('plan-m')">Получить персональный план</button>
+            <button class="btn-s" onclick="document.getElementById('benefits').scrollIntoView({behavior:'smooth'})">Узнать больше</button>
+        </div>
+        <div class="hero-trust">
+            <div class="trust-i"><div class="trust-dot"></div>10 000+ пользователей</div>
+            <div class="trust-i"><div class="trust-dot"></div>Поддержка 24/7</div>
+            <div class="trust-i"><div class="trust-dot"></div>Полная конфиденциальность</div>
+        </div>
+    </div>
+    <div class="scroll-ind"><span></span></div>
+</section>
 
-    <!-- Floating Consultant Widget -->
-    <div class="floating-consultant" id="floatingConsultant">
-        <div class="consultant-bubble">
-            <div class="consultant-top">
-                <div class="consultant-header">
-                    <div class="consultant-avatar">👧✨</div>
-                    <div class="consultant-info">
-                        <h3>Ваш проводник</h3>
-                        <p>24/7</p>
-                    </div>
+<!-- PERSONALIZATION -->
+<section class="plan-sec">
+    <div class="container">
+        <div class="plan-center fade-up">
+            <span class="plan-icon">🎯</span>
+            <span class="s-label">Персонализация</span>
+            <h2 class="s-title">Поймите, что влияет<br><strong>именно на ваш организм</strong></h2>
+            <p class="plan-desc">
+                Ваш метаболизм, давление, сон и настроение — это единая система.
+                LifePulse анализирует все факторы вместе и составляет персональный план,
+                который работает именно для вас: снизить давление, набрать мышечную массу или справиться со стрессом.
+            </p>
+            <div class="plan-tags">
+                <span class="p-tag">🩺 Контроль давления</span>
+                <span class="p-tag">🏋️ Физическая активность</span>
+                <span class="p-tag">🥗 Питание и рецепты</span>
+                <span class="p-tag">😴 Качество сна</span>
+                <span class="p-tag">🧘 Управление стрессом</span>
+            </div>
+            <button class="btn-p" onclick="openM('plan-m')">Получить персональный план здоровья →</button>
+        </div>
+    </div>
+</section>
+
+<!-- BENEFIT CARDS -->
+<section id="benefits">
+    <div class="container">
+        <span class="s-label fade-up">Три направления</span>
+        <h2 class="s-title fade-up">Всё, что нужно<br><strong>для гармонии</strong></h2>
+        <div class="cards-grid">
+            <div class="b-card fade-up" style="--ca:rgba(20,184,166,.12);--cb:rgba(20,184,166,.4);">
+                <span class="c-icon">🫀</span>
+                <div class="c-title">Физическое здоровье</div>
+                <div class="c-hint">Наведите курсор или нажмите →</div>
+                <div class="c-reveal">
+                    <h4>Физическое здоровье</h4>
+                    <p>Отслеживайте давление, пульс и приём лекарств. Получайте умные рекомендации в реальном времени. История за месяц — для показа врачу.</p>
+                    <button class="c-rbtn" onclick="openM('plan-m')">Начать отслеживание</button>
                 </div>
             </div>
-
-            <div class="consultant-bottom">
-                <button class="close-consultant" onclick="document.getElementById('floatingConsultant').style.display='none'">×</button>
-
-                <div class="consultant-message">
-                    👋 Здравствуйте! Я ваш помощник в LifePulse. Подскажу всё о здоровье и давлении, а еще я просто внимательный слушатель, который всегда рядом. Если вам тревожно или нужно выговориться — я здесь!!!
+            <div class="b-card fade-up" style="--ca:rgba(99,102,241,.12);--cb:rgba(99,102,241,.4);">
+                <span class="c-icon">📚</span>
+                <div class="c-title">Психология и Библиотека</div>
+                <div class="c-hint">Наведите курсор или нажмите →</div>
+                <div class="c-reveal">
+                    <h4>Психология и Библиотека</h4>
+                    <p>Доступ к саммари лучших книг по психологии в форматах текста и аудио. Разделы для мужчин, женщин и универсальные — без нарушения авторских прав.</p>
+                    <button class="c-rbtn" onclick="openM('lib-m')">Открыть библиотеку</button>
                 </div>
-
-                <div class="consultant-input-area">
-                    <input type="text" placeholder="Напишите..." id="consultantInput">
-                    <button class="consultant-btn consultant-btn-primary" style="flex: 0 0 auto; padding: 0.7rem 1rem;" onclick="window.open('https://t.me/lifepulse_assistant_bot', '_blank')">→</button>
+            </div>
+            <div class="b-card fade-up" style="--ca:rgba(139,92,246,.12);--cb:rgba(139,92,246,.4);">
+                <span class="c-icon">💬</span>
+                <div class="c-title">Диалог по душам</div>
+                <div class="c-hint">Наведите курсор или нажмите →</div>
+                <div class="c-reveal">
+                    <h4>Открытый диалог</h4>
+                    <p>Приватное пространство для разговора. Ответы основаны на доказательной психологии (КПТ, труды классиков). Полная анонимность.</p>
+                    <button class="c-rbtn" onclick="openM('dial-m')">Начать диалог</button>
                 </div>
-
-                <button class="consultant-btn consultant-btn-secondary" onclick="document.getElementById('floatingConsultant').style.display='none';">Закрыть</button>
             </div>
         </div>
     </div>
+</section>
+
+<!-- SMART FRIDGE -->
+<section id="nutrition" class="fridge-sec">
+    <div class="container">
+        <div class="fade-up">
+            <span class="s-label">Умное питание</span>
+            <h2 class="s-title">Рецепт из того,<br><strong>что есть в холодильнике</strong></h2>
+            <p class="s-sub">Выберите продукты, которые есть прямо сейчас — система предложит рецепт с расчётом калорий и объяснит, как блюдо повлияет на ваше самочувствие.</p>
+        </div>
+        <div class="fridge-grid fade-up">
+            <div class="f-panel">
+                <h3>🧊 Выберите продукты из холодильника:</h3>
+                <div class="ing-grid" id="ings">
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Курица</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Яйца</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Кабачок</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Гречка</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Творог</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Томаты</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Брокколи</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Лосось</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Овсянка</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Авокадо</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Шпинат</label>
+                    <label class="ing-chip" onclick="this.classList.toggle('on');calcRecipe()"><input type="checkbox">Рис</label>
+                </div>
+            </div>
+            <div>
+                <div class="recipe-box" id="rBox">
+                    <div class="r-name" id="rName"></div>
+                    <div class="r-macros" id="rMac"></div>
+                    <div class="r-insight" id="rIns"></div>
+                </div>
+                <div class="recipe-prompt" id="rPrompt">← Выберите 2–3 продукта, чтобы получить рецепт</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ENDORSEMENTS -->
+<section class="end-sec">
+    <div class="container">
+        <span class="s-label fade-up">Мнения специалистов</span>
+        <h2 class="s-title fade-up">Одобрено врачами<br><strong>и психологами</strong></h2>
+        <div class="end-grid">
+            <div class="e-card fade-up">
+                <div class="e-quote">"</div>
+                <p class="e-text">Регулярный мониторинг давления в связке с анализом питания существенно улучшает качество жизни гипертоников. Такие инструменты — важное дополнение к лечению.</p>
+                <div class="e-author">
+                    <div class="e-av">А</div>
+                    <div><div class="e-name">Алексей Морозов</div><div class="e-role">Кардиолог, к.м.н., стаж 18 лет</div></div>
+                </div>
+            </div>
+            <div class="e-card fade-up">
+                <div class="e-quote">"</div>
+                <p class="e-text">Осознанное питание и понимание влияния продуктов на организм — ключ к долгосрочному результату. Этот подход объединяет науку о питании с реальными потребностями людей.</p>
+                <div class="e-author">
+                    <div class="e-av">М</div>
+                    <div><div class="e-name">Мария Соколова</div><div class="e-role">Диетолог-нутрициолог, PhD</div></div>
+                </div>
+            </div>
+            <div class="e-card fade-up">
+                <div class="e-quote">"</div>
+                <p class="e-text">Доступная психологическая поддержка на основе доказательных методов — это то, чего не хватает. Когнитивно-поведенческий подход помогает людям в самые трудные моменты.</p>
+                <div class="e-author">
+                    <div class="e-av">Е</div>
+                    <div><div class="e-name">Елена Васильева</div><div class="e-role">Клинический психолог, КПТ-терапевт</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MOCKUPS -->
+<section class="mock-sec">
+    <div class="container">
+        <span class="s-label fade-up">Ваше здоровье в руках</span>
+        <h2 class="s-title fade-up">Всё в одном<br><strong>приложении</strong></h2>
+        <div class="mock-wrap fade-up">
+            <div class="phone">
+                <div class="p-screen">
+                    <div class="p-hdr">📊 Дашборд</div>
+                    <div class="p-metric"><span class="p-mlabel">Давление</span><span class="p-mval">118/76</span></div>
+                    <div class="p-metric"><span class="p-mlabel">Пульс</span><span class="p-mval">68 уд/мин</span></div>
+                    <div class="p-chart"></div>
+                </div>
+            </div>
+            <div class="phone center">
+                <div class="p-screen">
+                    <div class="p-hdr">🤖 LifePulse Бот</div>
+                    <div class="m-bubble m-ai" style="font-size:10px;margin-bottom:7px;">Ваш план на сегодня готов. Как вы себя чувствуете?</div>
+                    <div class="m-bubble m-user" style="font-size:10px;">Немного устал после тренировки</div>
+                    <div class="m-bubble m-ai" style="font-size:10px;">Рекомендую лёгкий ужин с белком. Показать рецепт? 🥗</div>
+                </div>
+            </div>
+            <div class="phone">
+                <div class="p-screen">
+                    <div class="p-hdr">📚 Библиотека</div>
+                    <div class="p-metric"><span class="p-mlabel">Читаете сейчас</span><span style="font-size:16px">📖</span></div>
+                    <div style="font-size:10px;color:var(--teal-light);margin-top:7px;">"Атомные привычки"</div>
+                    <div style="font-size:9px;color:var(--muted);">Джеймс Клир · Глава 3</div>
+                    <div class="p-chart" style="margin-top:10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DIALOG SECTION -->
+<section id="dialog" class="dialog-sec">
+    <div class="container" style="text-align:center;">
+        <span class="s-label fade-up">Поддержка</span>
+        <h2 class="s-title fade-up">Открытый диалог<br><strong>по душам</strong></h2>
+        <p class="s-sub fade-up" style="margin:0 auto 0;">Приватное пространство. Анонимно. Без осуждения. Ответы основаны исключительно на доказательной психологии — когнитивно-поведенческой терапии и трудах классиков.</p>
+        <div class="dialog-preview fade-up" onclick="openM('dial-m')">
+            <div class="dp-hdr">
+                <div class="dp-av">🧘</div>
+                <div><div class="dp-name">Психологическая поддержка</div><div class="dp-status">● Всегда доступна · Анонимно</div></div>
+            </div>
+            <div class="dp-msgs">
+                <div class="m-bubble m-ai">Здравствуйте. Это ваше безопасное пространство. Расскажите, что вас беспокоит — я готова выслушать. 🤝</div>
+                <div class="m-bubble m-user">Не могу справиться со стрессом на работе, всё валится из рук...</div>
+                <div class="m-bubble m-ai">Я слышу вас. То, что вы чувствуете — нормальная реакция на перегрузку. Расскажите, что именно происходит? Давайте разберёмся вместе. 💙</div>
+            </div>
+            <div class="dp-inp">
+                <input class="dp-field" type="text" placeholder="Написать..." readonly>
+                <button class="dp-send">→</button>
+            </div>
+        </div>
+        <button class="btn-p" style="margin-top:28px;" onclick="openM('dial-m')">Открыть диалог по душам</button>
+    </div>
+</section>
+
+<!-- LIBRARY SECTION -->
+<section id="library" class="lib-sec">
+    <div class="container">
+        <span class="s-label fade-up">Знания</span>
+        <h2 class="s-title fade-up">Библиотека<br><strong>психологии</strong></h2>
+        <p class="s-sub fade-up">Саммари лучших книг в форматах текста и аудио. Авторские краткие изложения — юридически корректно, без нарушения авторских прав.</p>
+        <div class="b-tabs fade-up">
+            <button class="b-tab active" onclick="filterBks('all',this)">Все книги</button>
+            <button class="b-tab" onclick="filterBks('men',this)">Для мужчин</button>
+            <button class="b-tab" onclick="filterBks('women',this)">Для женщин</button>
+            <button class="b-tab" onclick="filterBks('uni',this)">Универсальные</button>
+        </div>
+        <div class="b-grid fade-up">
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#1e3a5f,#0ea5e9)">📖</div><div class="bk-info"><div class="bk-title">Атомные привычки</div><div class="bk-author">Джеймс Клир</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#4a1942,#ec4899)">🌸</div><div class="bk-info"><div class="bk-title">Женщины, которые любят слишком сильно</div><div class="bk-author">Робин Норвуд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#1a2744,#6366f1)">⚡</div><div class="bk-info"><div class="bk-title">12 правил жизни</div><div class="bk-author">Джордан Питерсон</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#064e3b,#10b981)">🧘</div><div class="bk-info"><div class="bk-title">Сила настоящего</div><div class="bk-author">Экхарт Толле</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#3b1f5e,#a855f7)">💜</div><div class="bk-info"><div class="bk-title">Границы. Когда говорить да, когда — нет</div><div class="bk-author">Г. Клауд, Д. Таунсенд</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="men"><div class="bk-cover" style="background:linear-gradient(135deg,#1c1917,#d97706)">🔥</div><div class="bk-info"><div class="bk-title">Человек в поисках смысла</div><div class="bk-author">Виктор Франкл</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="uni"><div class="bk-cover" style="background:linear-gradient(135deg,#0c1445,#3b82f6)">🌊</div><div class="bk-info"><div class="bk-title">Эмоциональный интеллект</div><div class="bk-author">Дэниел Гоулман</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+            <div class="bk-card" data-cat="women"><div class="bk-cover" style="background:linear-gradient(135deg,#4a1942,#f472b6)">🌺</div><div class="bk-info"><div class="bk-title">Перестань быть хорошей</div><div class="bk-author">Ирина Млодик</div><div class="bk-actions"><button class="bk-btn bk-read" onclick="openM('lib-m')">📖 Читать</button><button class="bk-btn bk-listen" onclick="openM('lib-m')">🎧 Слушать</button></div></div></div>
+        </div>
+        <div style="text-align:center;margin-top:36px;">
+            <button class="btn-s" onclick="openM('lib-m')">Смотреть все книги →</button>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="f-grid">
+        <div class="f-brand">
+            <div class="f-logo">💜 LifePulse</div>
+            <p>Персональный помощник для контроля здоровья, осознанного питания и психологической поддержки.</p>
+        </div>
+        <div class="f-col">
+            <h4>Возможности</h4>
+            <ul>
+                <li><a href="#">Мониторинг здоровья</a></li>
+                <li><a href="#">Персональный план</a></li>
+                <li><a href="#nutrition">Умный холодильник</a></li>
+                <li><a href="#dialog">Диалог по душам</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <h4>Библиотека</h4>
+            <ul>
+                <li><a href="#" onclick="openM('lib-m')">Для мужчин</a></li>
+                <li><a href="#" onclick="openM('lib-m')">Для женщин</a></li>
+                <li><a href="#" onclick="openM('lib-m')">Универсальные</a></li>
+                <li><a href="#" onclick="openM('lib-m')">Все книги</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <h4>Компания</h4>
+            <ul>
+                <li><a href="#">О проекте</a></li>
+                <li><a href="https://t.me/zhanelle_875" target="_blank">Telegram-бот</a></li>
+                <li><a href="#">Конфиденциальность</a></li>
+                <li><a href="#">Условия использования</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="f-bottom">
+        <div class="f-legal">LifePulse не является медицинским устройством и не заменяет консультацию врача. © 2026 LifePulse</div>
+        <div class="f-legal">Контент библиотеки — авторские саммари. Авторские права первоисточников соблюдены.</div>
+    </div>
+</footer>
+
+<!-- COOKIE -->
+<div class="cookie" id="cookie">
+    <span class="cookie-txt">Мы используем файлы cookie для улучшения работы сайта и точности вашего плана. Оставаясь, вы соглашаетесь с <a href="#">Политикой конфиденциальности</a>.</span>
+    <button class="cookie-ok" onclick="closeCookie()">Принять</button>
+</div>
+
+<!-- HEART WIDGET -->
+<div class="hw">
+    <button class="hw-btn" onclick="openM('dial-m')" title="Открыть диалог по душам">
+        <div class="hw-pulse"></div>
+        <div class="hw-pulse"></div>
+        <div class="hw-pulse"></div>
+        <div class="hw-icon">🤍</div>
+    </button>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- PLAN MODAL -->
+<div class="overlay" id="plan-m">
+    <div class="m-box">
+        <div class="m-hdr">
+            <div class="m-title">🎯 Персональный план здоровья</div>
+            <button class="m-close" onclick="closeM('plan-m')">✕</button>
+        </div>
+        <div class="m-body">
+            <div class="p-step">
+                <div class="p-step-t">1. Ваша главная цель</div>
+                <div class="p-opts">
+                    <div class="p-opt" onclick="sel(this)">🩺 Нормализовать давление</div>
+                    <div class="p-opt" onclick="sel(this)">💪 Набрать мышечную массу</div>
+                    <div class="p-opt" onclick="sel(this)">🧘 Снизить стресс</div>
+                    <div class="p-opt" onclick="sel(this)">⚖️ Снизить вес</div>
+                    <div class="p-opt" onclick="sel(this)">😴 Улучшить сон</div>
+                    <div class="p-opt" onclick="sel(this)">⚡ Повысить энергию</div>
+                </div>
+            </div>
+            <div class="p-step">
+                <div class="p-step-t">2. Кто вы?</div>
+                <div class="p-opts">
+                    <div class="p-opt" onclick="sel(this)">🏃 Спортсмен</div>
+                    <div class="p-opt" onclick="sel(this)">👴 Пожилой человек</div>
+                    <div class="p-opt" onclick="sel(this)">🩸 Гипертоник</div>
+                    <div class="p-opt" onclick="sel(this)">💼 Занятой профессионал</div>
+                </div>
+            </div>
+            <div class="p-step">
+                <div class="p-step-t">3. Что беспокоит больше всего?</div>
+                <div class="p-opts">
+                    <div class="p-opt" onclick="sel(this)">❤️ Сердце и давление</div>
+                    <div class="p-opt" onclick="sel(this)">🥗 Питание</div>
+                    <div class="p-opt" onclick="sel(this)">🧠 Психология</div>
+                    <div class="p-opt" onclick="sel(this)">💊 Лекарства</div>
+                </div>
+            </div>
+            <button class="btn-p" style="width:100%;margin-top:8px;" onclick="showPlan()">Составить мой план →</button>
+            <div class="plan-res" id="planRes">
+                <div class="plan-res-t">✅ Ваш персональный план готов!</div>
+                <p>На основе ваших ответов мы подготовили индивидуальные рекомендации по питанию, физической активности и управлению стрессом. Перейдите в Telegram-бот, чтобы получить полный план.</p>
+                <button class="btn-p" style="margin-top:14px;" onclick="window.open('https://t.me/zhanelle_875','_blank')">Открыть в Telegram →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DIALOG MODAL -->
+<div class="overlay" id="dial-m">
+    <div class="m-box" style="max-width:540px;">
+        <div class="m-hdr" style="background:rgba(99,102,241,.08);">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:15px;">🧘</div>
+                <div>
+                    <div class="m-title">Открытый диалог по душам</div>
+                    <div style="font-size:10px;color:var(--teal);">● Анонимно · Доказательная психология · КПТ</div>
+                </div>
+            </div>
+            <button class="m-close" onclick="closeM('dial-m')">✕</button>
+        </div>
+        <div class="m-body" style="padding:18px 24px 24px;">
+            <div class="chat-msgs" id="chatMsgs">
+                <div class="m-bubble m-ai">Здравствуйте. Это ваше безопасное пространство — полная конфиденциальность. Расскажите, что вас беспокоит, и я готова помочь разобраться. 🤝</div>
+            </div>
+            <div class="chat-row">
+                <input class="chat-inp" id="chatIn" type="text" placeholder="Напишите что-то..." onkeypress="if(event.key==='Enter')sendMsg()">
+                <button class="chat-send" onclick="sendMsg()">→</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LIBRARY MODAL -->
+<div class="overlay" id="lib-m">
+    <div class="m-box" style="max-width:620px;">
+        <div class="m-hdr">
+            <div class="m-title">📚 Библиотека психологии</div>
+            <button class="m-close" onclick="closeM('lib-m')">✕</button>
+        </div>
+        <div class="m-body">
+            <p style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.55;">Авторские саммари классических и современных книг. Регулировка размера шрифта и скорости аудио доступны внутри каждой книги.</p>
+            <div class="lib-tabs">
+                <button class="lib-tab active" onclick="libTab('all',this)">Все</button>
+                <button class="lib-tab" onclick="libTab('men',this)">Для мужчин</button>
+                <button class="lib-tab" onclick="libTab('women',this)">Для женщин</button>
+                <button class="lib-tab" onclick="libTab('uni',this)">Универсальные</button>
+            </div>
+            <div class="lib-list" id="libList"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── PARTICLES ──
+(()=>{const c=document.getElementById('pts');for(let i=0;i<22;i++){const p=document.createElement('div');p.className='particle';const s=Math.random()*4+1;p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*16+10}s;animation-delay:${Math.random()*-22}s;`;c.appendChild(p);}})();
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
+
+// ── SCROLL ANIMATIONS ──
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// ── MODALS ──
+function openM(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';if(id==='lib-m')renderLib('all');}
+function closeM(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeM(o.id);}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.open').forEach(m=>closeM(m.id));});
+
+// ── COOKIE ──
+function closeCookie(){document.getElementById('cookie').classList.add('gone');localStorage.setItem('ck','1');}
+if(localStorage.getItem('ck'))document.getElementById('cookie').classList.add('gone');
+
+// ── PLAN ──
+function sel(el){el.classList.toggle('sel');}
+function showPlan(){const r=document.getElementById('planRes');r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'nearest'});}
+
+// ── RECIPES ──
+const rData=[
+    {n:'🍳 Яичница с томатами',c:'240 ккал',p:'18г белка',b:'8г углеводов',f:'16г жиров',i:'✅ Лёгкий завтрак. Ликопин томатов снижает риск сосудистых нарушений.'},
+    {n:'🥗 Куриная грудка с брокколи и гречкой',c:'380 ккал',p:'42г белка',b:'32г углеводов',f:'8г жиров',i:'✅ Идеально для спортсменов: полноценный белок + медленные углеводы. Брокколи снижает давление.'},
+    {n:'🍲 Суп из лосося со шпинатом',c:'290 ккал',p:'28г белка',b:'12г углеводов',f:'14г жиров',i:'✅ Омега-3 нормализует давление. Шпинат — магний и железо для сердца.'},
+    {n:'🥣 Овсянка с авокадо и яйцом',c:'420 ккал',p:'22г белка',b:'38г углеводов',f:'18г жиров',i:'✅ Клетчатка овса снижает холестерин, калий авокадо — для гипертоников.'},
+    {n:'🧆 Творожники с зеленью',c:'260 ккал',p:'26г белка',b:'14г углеводов',f:'10г жиров',i:'✅ Высокий белок при низких калориях. Отлично для снижения веса.'}
+];
+function calcRecipe(){
+    const n=document.querySelectorAll('.ing-chip.on').length;
+    const box=document.getElementById('rBox'),prom=document.getElementById('rPrompt');
+    if(n>=2){const r=rData[Math.floor(Math.random()*rData.length)];
+        document.getElementById('rName').textContent=r.n;
+        document.getElementById('rMac').innerHTML=`<span class="r-badge">🔥 ${r.c}</span><span class="r-badge">💪 ${r.p}</span><span class="r-badge">🌾 ${r.b}</span><span class="r-badge">🫒 ${r.f}</span>`;
+        document.getElementById('rIns').textContent=r.i;
+        box.classList.add('show');prom.style.display='none';
+    }else{box.classList.remove('show');prom.style.display='block';}
+}
+
+// ── BOOK FILTER (section) ──
+function filterBks(cat,btn){
+    document.querySelectorAll('.b-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.bk-card').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';});
+}
+
+// ── CHAT ──
+const pResp=[
+    'Я слышу вас. То, что вы чувствуете — реальная боль, она заслуживает внимания. Расскажите подробнее — с чего это началось?',
+    'Когнитивно-поведенческая психология напоминает: наши мысли формируют наши чувства. Попробуем вместе переосмыслить эту ситуацию. Что именно причиняет больше всего боли?',
+    'Виктор Франкл писал: «Между стимулом и реакцией есть пространство — в нём наша сила». Давайте найдём это пространство в вашей ситуации.',
+    'Вы не обязаны справляться в одиночку. Первый шаг — признать, что тяжело. Вы уже это сделали. Что сейчас происходит у вас внутри?',
+    'Ваши чувства — это информация, не приговор. Как давно вы это чувствуете и есть ли моменты, когда становится легче?',
+    'В КПТ существуют «автоматические мысли» — они тянут нас вниз незаметно. Какие мысли появляются у вас в такие моменты?',
+    'Это нормально — чувствовать именно то, что вы чувствуете. Валидация эмоций — первый шаг к исцелению. Что бы вы хотели изменить в первую очередь?'
+];
+let ri=0;
+function sendMsg(){
+    const inp=document.getElementById('chatIn'),msgs=document.getElementById('chatMsgs'),txt=inp.value.trim();
+    if(!txt)return;
+    const um=document.createElement('div');um.className='m-bubble m-user';um.textContent=txt;msgs.appendChild(um);
+    inp.value='';
+    const ty=document.createElement('div');ty.className='m-bubble m-ai typing-ind';ty.innerHTML='<div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>';
+    msgs.appendChild(ty);msgs.scrollTop=msgs.scrollHeight;
+    setTimeout(()=>{msgs.removeChild(ty);const am=document.createElement('div');am.className='m-bubble m-ai';am.textContent=pResp[ri%pResp.length];ri++;msgs.appendChild(am);msgs.scrollTop=msgs.scrollHeight;},1600);
+}
+
+// ── LIBRARY MODAL DATA ──
+const libData=[
+    {cat:'uni',e:'📖',t:'Атомные привычки',a:'Джеймс Клир',d:'20 мин · Как маленькие изменения дают огромные результаты'},
+    {cat:'uni',e:'🧠',t:'Думай медленно, решай быстро',a:'Даниэль Канеман',d:'25 мин · Два режима мышления и как ими управлять'},
+    {cat:'uni',e:'🌊',t:'Эмоциональный интеллект',a:'Дэниел Гоулман',d:'22 мин · Как управлять эмоциями и строить отношения'},
+    {cat:'uni',e:'🔑',t:'Сила настоящего',a:'Экхарт Толле',d:'18 мин · Как остановить поток тревожных мыслей'},
+    {cat:'men',e:'⚡',t:'12 правил жизни',a:'Джордан Питерсон',d:'30 мин · Противоядие от хаоса'},
+    {cat:'men',e:'🔥',t:'Человек в поисках смысла',a:'Виктор Франкл',d:'20 мин · О стойкости духа в невыносимых условиях'},
+    {cat:'men',e:'💎',t:'Стоицизм на каждый день',a:'Марк Аврелий',d:'15 мин · Классика стоической философии'},
+    {cat:'men',e:'🎯',t:'Не давай эмоциям управлять тобой',a:'Мэттью Маккей',d:'20 мин · КПТ-техники управления гневом'},
+    {cat:'women',e:'🌸',t:'Женщины, которые любят слишком сильно',a:'Робин Норвуд',d:'25 мин · О созависимых отношениях и пути к себе'},
+    {cat:'women',e:'💜',t:'Границы. Когда говорить да, когда — нет',a:'Г. Клауд, Д. Таунсенд',d:'22 мин · Как выстроить здоровые личные границы'},
+    {cat:'women',e:'🌺',t:'Перестань быть хорошей',a:'Ирина Млодик',d:'18 мин · Как перестать жить для других'},
+    {cat:'women',e:'✨',t:'Нелюбимая дочь',a:'Пег Стрип',d:'20 мин · Исцеление от эмоциональной боли детства'}
+];
+function renderLib(cat){
+    const list=document.getElementById('libList');
+    const items=(cat==='all'?libData:libData.filter(b=>b.cat===cat));
+    list.innerHTML=items.map(b=>`
+        <div class="lb-item">
+            <div class="lb-em">${b.e}</div>
+            <div class="lb-info"><div class="lb-t">${b.t}</div><div class="lb-a">${b.a}</div><div class="lb-d">${b.d}</div></div>
+            <div class="lb-btns"><button class="lb-btn lb-read">📖 Читать</button><button class="lb-btn lb-listen">🎧 Слушать</button></div>
+        </div>`).join('');
+}
+function libTab(cat,btn){document.querySelectorAll('.lib-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderLib(cat);}
+</script>
 </body>
 </html>
