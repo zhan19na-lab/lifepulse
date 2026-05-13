@@ -291,3 +291,266 @@ input:focus { box-shadow: 0 0 0 4px rgba(99,102,241,0.15); }
 ---
 
 *Исследование проведено: 13 мая 2026. Источник: экспертные знания по awwwards.com, Smashing Magazine, CSS-Tricks, design publications (август 2025).*
+
+---
+
+## ЧАСТЬ 4: ДИЗАЙН-СИСТЕМА LIFEPULSE — SAGE GREEN PALETTE
+
+> Документация финального дизайна лендинга `index.html` (версия от 13 мая 2026).
+
+---
+
+### 4.1 Цветовая палитра (CSS Custom Properties)
+
+```css
+:root {
+    --bg:        #f2f6f0;  /* основной фон — светлый шалфейно-серый */
+    --bg2:       #e8eee5;  /* вторичный фон секций */
+    --sage:      #8fa882;  /* шалфей основной */
+    --sage-d:    #6b8560;  /* тёмный шалфей — интерактивные элементы */
+    --sage-deep: #3d5c38;  /* глубокий шалфей — заголовки, акценты */
+    --conifer:   #1e3d1a;  /* хвойный тёмно-зелёный — основной текст */
+    --olive:     #7a9e52;  /* оливковый — кнопки CTA */
+    --olive-l:   #a3c278;  /* светлый оливковый */
+    --pistachio: #c8ddb8;  /* фисташковый — пастельный акцент */
+    --cream:     #f9f5ec;  /* кремовый — герой, карточки */
+    --cream2:    #fdf9f0;  /* тёплый белый — модали */
+    --white:     #ffffff;
+    --muted:     #7a9070;  /* приглушённый — вторичный текст */
+    --border:    rgba(107,133,96,.18);
+    --card-bg:   rgba(143,168,130,.18);
+    --r:         22px;     /* border-radius глобальный */
+}
+```
+
+**Семантика цветов:**
+| Переменная | Применение |
+|-----------|-----------|
+| `--conifer` | Основной цвет текста, тёмные фоны (footer, phone) |
+| `--sage-deep` | Заголовки в карточках, активные состояния |
+| `--olive` | Primary CTA кнопки, акценты, чекбоксы |
+| `--sage-d` | Hover-состояния кнопок, ссылки |
+| `--pistachio` | Пассивные badge, светлые акценты на тёмном фоне |
+| `--muted` | Placeholder-текст, вторичные описания |
+| `--cream` / `--cream2` | Фон модалей и кремовых секций |
+
+---
+
+### 4.2 Типографика
+
+```css
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.65;
+}
+
+/* Fluid размеры заголовков */
+.hero-title { font-size: clamp(2rem, 5.5vw, 4rem); font-weight: 300; letter-spacing: -.02em; }
+.hero-title strong { font-weight: 700; } /* контраст thin/bold в одном заголовке */
+.s-title { font-size: clamp(1.7rem, 3.8vw, 2.7rem); font-weight: 300; }
+.s-label { font-size: .68rem; letter-spacing: 3px; text-transform: uppercase; } /* micro-label */
+```
+
+**Переключатель размера шрифта (А / А+ / А++):**
+```css
+:root         { --font-base: 16px; }
+.font-lg      { --font-base: 19px; }
+.font-xl      { --font-base: 22px; }
+html          { font-size: var(--font-base); }
+```
+```javascript
+function setFont(sz, btn) {
+    document.documentElement.classList.remove('font-lg','font-xl');
+    if (sz === 'lg') document.documentElement.classList.add('font-lg');
+    if (sz === 'xl') document.documentElement.classList.add('font-xl');
+    document.querySelectorAll('.ft-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+```
+
+---
+
+### 4.3 Структура лендинга (все секции)
+
+| # | ID / класс | Секция | Ключевая фича |
+|---|-----------|--------|--------------|
+| 1 | `.hero` | Герой | CSS-анимированное поле шалфея, без видео-файлов |
+| 2 | `.plan-sec` | Твой план здоровья | Теги-категории, кнопка открывает план-модал |
+| 3 | `.cards-sec` | 3 направления | Hover-reveal карточки (Здоровье, Психология, Диалог) |
+| 4 | `.fridge-sec` | Умный холодильник | Чекбоксы ингредиентов → генератор рецептов |
+| 5 | `.end-sec` | Отзывы | 3 карточки с аватарами и цитатами |
+| 6 | `.mock-sec` | Мокапы телефонов | 3 чистых CSS-телефона с метриками |
+| 7 | `.dialog-sec` | Диалог по душам | Превью чата → кнопка открывает modal-чат |
+| 8 | `.lib-sec` | Библиотека | Карточки книг с фильтром по категориям |
+| — | `footer` | Футер | Тёмно-зелёный, 4 колонки, links |
+| — | `.cookie` | Cookie banner | Фиксированный pill-баннер внизу |
+| — | `.hw` | Heart Widget | Фиксированный пульсирующий виджет (нижний правый угол) |
+
+---
+
+### 4.4 Анимации
+
+#### Героический фон — CSS-поле шалфея (без видео)
+```css
+.hero-bg {
+    background: linear-gradient(180deg,
+        #c8ddb8 0%, #a3c278 18%, #7a9e52 35%,
+        #5a7a40 52%, #3d5c38 70%, #2a4228 100%);
+}
+/* мистический туман */
+.hero-bg::before {
+    animation: mist 10s ease-in-out infinite alternate;
+}
+@keyframes mist {
+    0%   { opacity: .7; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.04) translateY(-1%); }
+}
+/* колыхание травы */
+.hero-bg::after {
+    animation: sway 6s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+}
+@keyframes sway {
+    0%   { transform: skewX(0deg); }
+    100% { transform: skewX(.8deg); }
+}
+/* рассветное свечение */
+.dawn { animation: dawnPulse 8s ease-in-out infinite alternate; }
+@keyframes dawnPulse {
+    0%   { opacity: .7; }
+    100% { opacity: 1; }
+}
+```
+
+#### Пульсирующий виджет сердца
+```css
+.hw-pulse {
+    animation: hpulse 2.2s ease-out infinite;
+}
+.hw-pulse:nth-child(2) { animation-delay: .65s; }
+.hw-pulse:nth-child(3) { animation-delay: 1.3s; }
+@keyframes hpulse {
+    0%   { transform: scale(.85); opacity: .8; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%       { transform: scale(1.13); }
+    28%       { transform: scale(1); }
+    42%       { transform: scale(1.08); }
+    70%       { transform: scale(1); }
+}
+```
+
+#### Scroll-reveal (IntersectionObserver)
+```javascript
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+```
+```css
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity .65s ease, transform .65s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+```
+
+#### Индикатор печати (чат)
+```css
+.t-dot {
+    animation: tbounce 1.2s ease-in-out infinite;
+}
+.t-dot:nth-child(2) { animation-delay: .2s; }
+.t-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes tbounce {
+    0%, 100% { transform: translateY(0); opacity: .4; }
+    50%       { transform: translateY(-4px); opacity: 1; }
+}
+```
+
+---
+
+### 4.5 Компоненты
+
+#### Hover-reveal карточки (3 направления)
+```css
+.b-card:hover .c-reveal { opacity: 1; transform: translateY(0); }
+.c-reveal {
+    position: absolute; inset: 0;
+    background: rgba(232,238,229,.96);
+    opacity: 0; transform: translateY(8px);
+    transition: all .35s cubic-bezier(.23,1,.32,1);
+}
+```
+
+#### Модальная система
+```javascript
+function openM(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+function closeM(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+}
+// Escape + click-overlay
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.overlay.open').forEach(o => o.classList.remove('open')); });
+```
+```css
+.overlay { opacity: 0; pointer-events: none; transition: opacity .3s; }
+.overlay.open { opacity: 1; pointer-events: all; }
+.m-box { transform: translateY(16px) scale(.97); transition: transform .3s cubic-bezier(.23,1,.32,1); }
+.overlay.open .m-box { transform: translateY(0) scale(1); }
+```
+
+#### Cookie banner
+```javascript
+if (!localStorage.getItem('ck')) document.getElementById('cookie').style.display = 'flex';
+function acceptCookie() {
+    localStorage.setItem('ck','1');
+    document.getElementById('cookie').classList.add('gone');
+}
+```
+
+#### Умный холодильник — генератор рецептов
+```javascript
+const rData = [
+    { name: 'Греческий салат', kcal: 210, p: '6г', c: '12г', f: '16г', insight: '...' },
+    // ... 7 рецептов
+];
+function calcR() {
+    const selected = [...document.querySelectorAll('.ing-chip.on')].map(c => c.dataset.name);
+    if (!selected.length) { /* показать подсказку */ return; }
+    const r = rData[Math.floor(Math.random() * rData.length)];
+    // рендер рецепта в .recipe-box
+}
+```
+
+---
+
+### 4.6 CSS Leaf Logo
+```html
+<div class="logo-leaf">🌿</div>
+```
+```css
+.logo-leaf {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--sage-d), var(--olive));
+    border-radius: 50% 10% 50% 10%; /* форма листа */
+    box-shadow: 0 3px 12px rgba(107,133,96,.35);
+}
+```
+
+---
+
+### 4.7 Responsive: ключевые брейкпоинты
+
+| Брейкпоинт | Что меняется |
+|-----------|-------------|
+| `max-width: 820px` | Навигационные ссылки скрываются |
+| `max-width: 760px` | Footer переходит в 2 колонки; fridge-grid → 1 колонка |
+| `max-width: 600px` | Cookie banner: pill → rounded rect, flex-wrap |
+| `max-width: 480px` | Footer → 1 колонка |
+
+---
+
+*Дизайн-документация обновлена: 13 мая 2026. Текущая версия: Sage Green Palette v1.0.*
